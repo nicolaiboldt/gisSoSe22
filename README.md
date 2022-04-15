@@ -1,5 +1,5 @@
 # TicTacToe EXTREM
-Abgabe 1 befindet sich im Root-Ordner.
+Abgabe 2 befindet sich im Root-Ordner.
 
 Repository von Nicolai Boldt
 
