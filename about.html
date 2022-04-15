@@ -7,22 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Nicolai Boldt">
     <title>Über das Projekt - TicTacToe Extrem</title>
+    <link rel="stylesheet" href="styles/styles.css" />
 </head>
 
 <body>
+    <div class="content">
     <header>
-        <a href="index.html" style="text-decoration: none;color: black;">
+        <a href="index.html">
             <h1>Tic Tac Toe EXTREM</h1>
         </a>
         <nav>
-            <a href="game.html">Spiel starten</a> |
-            <a href="howto.html">Wie man spielt</a> |
-            <a href="about.html">Über das Projekt</a> |
+            <a href="game.html">Spiel starten</a>
+            <a href="howto.html">Wie man spielt</a>
+            <a href="about.html" class="navActive">Über das Projekt</a>
         </nav>
     </header>
     <main>
-        <img src="https://www.hs-furtwangen.de/typo3conf/ext/hfu_distribution/Resources/Public/Images/Keyvisuals/HFU_1600x660_18_DE.jpg"
-            width="30%">
+        <a href="https://hs-furtwangen.de"><img id="hfu_bild" src="https://www.hs-furtwangen.de/typo3conf/ext/hfu_distribution/Resources/Public/Images/Keyvisuals/HFU_1600x660_18_DE.jpg"></a>
         <h2>Über das Projekt</h2>
         <p>Diese Webseite entsteht im Rahmen der Veranstaltung "Grundlagen Interaktiver Systeme" im zweiten Semester von
             OnlineMedien an der Hochschule Furtwangen.
@@ -33,6 +34,7 @@
         <p>Ersteller der Seite: Nicolai Boldt</p>
         <button onclick="window.location.href='game.html'">Zum Spiel</button>
     </main>
+    </div>
     <footer>Impressum</footer>
 </body>
 
