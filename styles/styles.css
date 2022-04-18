@@ -43,6 +43,7 @@ h1:hover{
     transform: scale(1.1);
 }
 
+
 a{
     padding: 15px 32px;
     text-decoration: none;
@@ -99,6 +100,14 @@ button:hover {
 .text {
     width: 50%;
     
+}
+
+.text p::first-letter{
+    font-size: 3em;
+    padding: 5px;
+    margin-right: 5px;
+    border: 2px solid black;
+    color: #f4511e;
 }
 
 #hfu_bild {
