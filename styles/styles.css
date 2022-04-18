@@ -52,6 +52,7 @@ a{
 nav{
     text-align: center;
     padding-bottom: 14px;
+    white-space: nowrap;
 }
 
 nav a{
