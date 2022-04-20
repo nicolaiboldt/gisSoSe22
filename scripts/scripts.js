@@ -1,1 +1,3 @@
-console.log("scripts.js wurde ausgeführt")
+const test = 0;
+
+console.log(test);
