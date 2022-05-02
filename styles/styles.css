@@ -3,6 +3,14 @@
     src: url(../assets/fonts/Plus_Jakarta_Sans/PlusJakartaSans-VariableFont_wght.ttf);
 }
 
+:root{
+    margin: 0 auto;
+    --columns: 3;
+    --containerwidth: 450px;
+    --feldgroesse: var(--containerwidth) / var(--columns);
+    
+}
+
 body{
     margin: 0 auto;
     text-align: center;
@@ -119,21 +127,31 @@ button:hover {
     transform: scale(0.95);
 }
 
-#zeilen,#spalten{
+#groesse{
     margin-left: 15px;
     margin-right: 15px;
 }
 
 #spiel {
+    display: grid;
+    grid-template-columns:  repeat(var(--columns),auto);
+    column-gap: 0px;
+    width: var(--containerwidth);
+    height: var(--containerwidth);
     margin: 0 auto;
-    border: 5px solid black;
-    line-height: 30em;
-    height: 30em;
-    width: 30em;
+    margin-top: 1em;
+}
+.grid-item {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    width: var(--feldgroesse);
+    height: var(--feldgroesse);
+    font-size: 20px;
+    text-align: center;
+    transition: 0.3s;
+  }
+
+.grid-item:hover{
+    background-color: #ffc6b5;
 }
 
-#spiel_platzhalter {
-    display: inline-block;
-    line-height: normal;
-    vertical-align: middle;
-}

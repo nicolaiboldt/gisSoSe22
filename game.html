@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Nicolai Boldt">
-    <title>Spielen - TicTacToe Extrem</title>
+    <title>Spielen - TicTacToe Extreme</title>
     <link rel="stylesheet" href="styles/styles.css" />
+    <script src="scripts/game.js" defer></script>
 
 </head>
 
@@ -16,7 +16,7 @@
     <div class="content">
     <header>
         <a href="index.html">
-            <h1>Tic Tac Toe EXTREM</h1>
+            <h1>Tic Tac Toe EXTREME</h1>
         </a>
         <nav>
             <a href="game.html" class="navActive">Spielen</a>
@@ -25,13 +25,21 @@
         </nav>
     </header>
     <main>
-        <p>Zeilen</p>
-        <label>3<input type="range" min="3" max="5" value="1" id="zeilen">5</label>
-        <p>Spalten</p>
-        <label>3<input type="range" min="3" max="5" value="1" id="spalten">5</label>
-        <br>
-        <button type="button" onclick="window.location.href='index.html'">Starten</button>
-        <div id="spiel"><p id="spiel_platzhalter">Spiel-Platzhalter</p></div>
+        <p>Größe</p>
+        <label>3<input type="range" min="3" max="7" value="1" id="groesse" onclick="groessenChange()">7</label>
+        <div id="spiel">
+            <div class="grid-item" id="0">0</div>
+            <div class="grid-item" id="1">1</div>
+            <div class="grid-item" id="2">2</div>  
+            <div class="grid-item" id="3">3</div>
+            <div class="grid-item" id="4">4</div>
+            <div class="grid-item" id="5">5</div>  
+            <div class="grid-item" id="6">6</div>
+            <div class="grid-item" id="7">7</div>
+            <div class="grid-item" id="8">8</div> 
+        </div>
+
+
     </main>
     </div>
     <footer>Impressum</footer>
