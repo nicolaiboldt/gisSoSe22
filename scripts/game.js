@@ -22,19 +22,55 @@ const drawBoard = () => {
         }
         box.style = styleString;
         box.addEventListener("click", boxClicked);
-        console.log("ausgeführt");
     };
 };
 drawBoard();
+
+const imgX = document.getElementById("previewIconX");
+const imgO = document.getElementById("previewIconO");
+const inputX = document.getElementById("inputX");
+const inputO = document.getElementById("inputO");
+
+imgX.addEventListener("click", function() {
+    inputX.click();
+});
+imgO.addEventListener("click", function() {
+    inputO.click();
+});
+
+// eslint-disable-next-line prefer-const
+let iconX = "/assets/img/x.png";
+// eslint-disable-next-line prefer-const
+let iconO = "/assets/img/o.png";
+
+function uploadX(event) {
+    if (event.target.files.length > 0) {
+        iconX = URL.createObjectURL(event.target.files[0]);
+        console.log("image uploaded");
+        imgX.src = iconX;
+        changeIcons();
+    }
+}
+
+function uploadO(event) {
+    if (event.target.files.length > 0) {
+        iconO = URL.createObjectURL(event.target.files[0]);
+        console.log("image uploaded");
+        imgO.src = iconO;
+        changeIcons();
+    }
+}
 
 function boxClicked(event) {
     if (event.currentTarget.hasChildNodes() == false) {
         player *= (-1);
         const icon = document.createElement("img");
         if (player == 1) {
-            icon.src = "/assets/img/trollface.png";
+            icon.src = iconX;
+            icon.id = "iconX";
         } else {
-            icon.src = "/assets/img/x.png";
+            icon.src = iconO;
+            icon.id = "iconO";
         }
         icon.className = "icon";
         event.target.append(icon);
@@ -45,7 +81,6 @@ function boxClicked(event) {
 function groessenChange() {
     rangeColumns = document.getElementById("groesse").value;
 
-    console.log("zeile gechanged");
     c.style.setProperty("--columns", rangeColumns);
 
     const feldgroesse = 150 - ((rangeColumns - 3) * 25);
@@ -72,8 +107,6 @@ function groessenChange() {
             feldIndex--;
         }
     }
-    console.log(feldgroesse);
-    console.log(((feldgroesse + 2) * rangeColumns) + "px");
     drawBoard();
 }
 
@@ -83,6 +116,26 @@ function reset() {
     for (const box of boxes) {
         if (box.hasChildNodes()) {
             box.removeChild(box.firstChild);
+        }
+    }
+}
+
+function resetIcons() {
+    iconX = "/assets/img/x.png";
+    iconO = "/assets/img/o.png";
+    imgX.src = iconX;
+    imgO.src = iconO;
+    changeIcons();
+}
+
+function changeIcons() {
+    for (const box of boxes) {
+        if (box.hasChildNodes()) {
+            if (box.firstChild.id == "iconX") {
+                box.firstChild.src = iconX;
+            } else {
+                box.firstChild.src = iconO;
+            }
         }
     }
 }

@@ -37,7 +37,20 @@
                     <label>7</label>
                 </div>
             </div>
-            <button id="reset" onclick="reset()">Reset</button>
+            <div class="iconAuswahl">
+                <input type="file" id="inputX" accept="image/jpeg, image/png, image/jpg" hidden="hidden" onchange="uploadX(event)">
+                <img class="previewIcon" id="previewIconX" src="/assets/img/x.png"></img>
+                <label>Spieler 1</label>
+            </div>
+            <div class="iconAuswahl">
+                <input type="file" id="inputO" accept="image/jpeg, image/png, image/jpg" hidden="hidden" onchange="uploadO(event)">
+                <img class="previewIcon" id="previewIconO" src="/assets/img/o.png"></img>
+                <label>Spieler 2</label>
+            </div>
+            <div class="resetButtons">
+                <button id="reset" onclick="reset()">Reset</button>
+                <button id="resetIcons" onclick="resetIcons()">Reset Icons</button>
+            </div>
         </div>
         <div id="spiel">
             <div class="grid-item" id="0"></div>

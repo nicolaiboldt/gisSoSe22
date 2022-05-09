@@ -68,6 +68,7 @@ nav{
 
 nav a{
     transition: 0.2s;
+    border-radius: 20px;
 }
 
 nav a:hover{
@@ -106,23 +107,35 @@ button:hover {
 .intro {
     display: flex;
     justify-content: center;
+    margin-top: 1em;
     gap: 1em;
 }
 .text {
     width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.text p {
+    width: 100%;
+}
+
+.text button {
+    width:fit-content;
 }
 
 p {
     width: 60%;
 }
 
-.text p::first-letter{
+/*.text p::first-letter{
     font-size: 3em;
     padding: 5px;
     margin-right: 5px;
     border: 2px solid black;
     color: #f4511e;
-}
+}*/
 
 #hfu_bild {
     width: 50%;
@@ -161,6 +174,34 @@ h2 {
     padding-right: 5px;
 }
 
+.iconAuswahl {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.previewIcon {
+    object-fit: contain;
+    transition: 0.3s;
+    width: 3em;
+    height: 3em;
+}
+
+.previewIcon:hover {
+    opacity: 50%;
+}
+
+.resetButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.resetButtons button {
+    padding: 10px 15px;
+}
+
 
 #spiel {
     display: grid;
@@ -185,9 +226,12 @@ h2 {
 
 .icon {
     image-rendering: auto;
+    object-fit: contain;
     height: 75%;
+    width: 80%;
     will-change: transform;
     animation: appear 0.3s cubic-bezier(0.5,1.2,0.1,1.1);
+   
 }
 
 @keyframes appear {
