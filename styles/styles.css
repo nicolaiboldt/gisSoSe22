@@ -179,6 +179,16 @@ h2 {
     flex-direction: column;
     gap: 5px;
     align-items: center;
+    opacity: 18%;
+    transition: 0.2s;
+}
+
+.iconAuswahl:hover {
+    opacity: 100%;
+}
+
+.iconAuswahl.high {
+    opacity: 100%;
 }
 
 .previewIcon {
@@ -190,9 +200,10 @@ h2 {
 }
 
 .previewIcon:hover {
-    opacity: 50%;
+    opacity: 100%;
     transform: scale(1.1);
 }
+
 
 .resetButtons {
     display: flex;

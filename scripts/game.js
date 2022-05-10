@@ -7,6 +7,8 @@ let rangeColumns = document.getElementById("groesse").value;
 const boxes = document.getElementsByClassName("grid-item");
 let player = -1;
 
+const board = document.getElementById("spiel");
+
 const drawBoard = () => {
     for (const box of boxes) {
         let styleString = "";
@@ -25,6 +27,10 @@ const drawBoard = () => {
 };
 
 drawBoard();
+
+const auswahlX = document.getElementById("auswahlX");
+const auswahlO = document.getElementById("auswahlO");
+
 
 const imgX = document.getElementById("previewIconX");
 const imgO = document.getElementById("previewIconO");
@@ -93,7 +99,7 @@ function uploadO(event) {
 
 function boxClicked(event) {
     if (event.currentTarget.hasChildNodes() == false) {
-        player *= (-1);
+        switchPlayer();
         const icon = document.createElement("img");
         if (player == 1) {
             icon.src = iconX.path;
@@ -108,6 +114,25 @@ function boxClicked(event) {
         event.target.append(icon);
     }
 };
+
+function switchPlayer() {
+    player *= (-1);
+    updatePlayerUI();
+}
+
+function updatePlayerUI() {
+    board.classList.remove("x");
+    board.classList.remove("o");
+    if (player == 1) {
+        board.classList.add("x");
+        auswahlX.classList.remove("high");
+        auswahlO.classList.add("high");
+    } else {
+        board.classList.add("o");
+        auswahlO.classList.remove("high");
+        auswahlX.classList.add("high");
+    }
+}
 
 // eslint-disable-next-line no-unused-vars
 function groessenChange() {
@@ -143,16 +168,31 @@ function groessenChange() {
 }
 
 groessenChange();
+randomPlayer();
+updatePlayerUI();
 
 function reset() {
     for (const box of boxes) {
         if (box.hasChildNodes()) {
             box.removeChild(box.firstChild);
         }
-        console.log(box.classList);
         box.classList.remove("x");
         box.classList.remove("o");
     }
+
+    randomPlayer();
+    updatePlayerUI();
+}
+
+function randomPlayer() {
+    let random = Math.random();
+    console.log(random);
+    random = Math.round(random);
+    console.log(random);
+    if (random == 0) {
+        random = -1;
+    }
+    player = random;
 }
 
 function resetIcons() {
