@@ -7,7 +7,6 @@ let rangeColumns = document.getElementById("groesse").value;
 const boxes = document.getElementsByClassName("grid-item");
 let player = -1;
 
-
 const drawBoard = () => {
     for (const box of boxes) {
         let styleString = "";
@@ -24,6 +23,7 @@ const drawBoard = () => {
         box.addEventListener("click", boxClicked);
     };
 };
+
 drawBoard();
 
 const imgX = document.getElementById("previewIconX");
@@ -68,6 +68,7 @@ function boxClicked(event) {
         if (player == 1) {
             icon.src = iconX;
             icon.id = "iconX";
+            event.currentTarget.className += " x";
         } else {
             icon.src = iconO;
             icon.id = "iconO";
@@ -117,6 +118,9 @@ function reset() {
         if (box.hasChildNodes()) {
             box.removeChild(box.firstChild);
         }
+        console.log(box.classList);
+        box.classList.remove("x");
+        box.classList.remove("o");
     }
 }
 

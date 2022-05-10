@@ -190,6 +190,7 @@ h2 {
 
 .previewIcon:hover {
     opacity: 50%;
+    transform: scale(1.1);
 }
 
 .resetButtons {
@@ -212,6 +213,10 @@ h2 {
     margin: 0 auto;
     padding: 1em;
 }
+
+.board.x .grid-item:hover {
+}
+
 .grid-item {
     background-color: rgb(255, 255, 255);
     width: var(--feldgroesse);
@@ -222,6 +227,7 @@ h2 {
     justify-content: center;
     align-items: center;
     transition: 0.3s;
+    cursor: pointer;
   }
 
 .icon {
