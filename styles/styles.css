@@ -215,7 +215,8 @@ h2 {
     padding: 1em;
 }
 
-.board.x .grid-item:hover {
+.grid-item.x, .o:hover {
+    cursor: not-allowed;
 }
 
 .grid-item {

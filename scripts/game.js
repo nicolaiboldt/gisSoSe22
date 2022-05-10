@@ -42,39 +42,67 @@ imgO.addEventListener("click", function() {
 });
 
 // eslint-disable-next-line prefer-const
-let iconX = defaultPathX;
+/* let iconX = defaultPathX;*/
 // eslint-disable-next-line prefer-const
-let iconO = defaultPathO;
+/* let iconO = defaultPathO;*/
+
+let iconX = {
+    name: "iconX",
+    path: defaultPathX
+};
+
+let iconO = {
+    name: "iconO",
+    path: defaultPathO
+};
 
 function uploadX(event) {
     if (event.target.files.length > 0) {
-        iconX = URL.createObjectURL(event.target.files[0]);
-        console.log("image uploaded");
-        imgX.src = iconX;
-        changeIcons();
+        const uploadImg = {
+            name: event.target.files[0].name,
+            path: URL.createObjectURL(event.target.files[0])
+        };
+
+        if (uploadImg.name != iconO.name) {
+            iconX = uploadImg;
+            imgX.src = iconX.path;
+            changeIcons();
+        } else {
+            alert("Du kannst nicht zweimal das gleiche Symbol verwenden!");
+        }
     }
 }
 
 function uploadO(event) {
     if (event.target.files.length > 0) {
-        iconO = URL.createObjectURL(event.target.files[0]);
-        console.log("image uploaded");
-        imgO.src = iconO;
-        changeIcons();
+        const uploadImg = {
+            name: event.target.files[0].name,
+            path: URL.createObjectURL(event.target.files[0])
+        };
+
+        if (uploadImg.name != iconX.name) {
+            iconO = uploadImg;
+            imgO.src = iconO.path;
+            changeIcons();
+        } else {
+            alert("Du kannst nicht zweimal das gleiche Symbol verwenden!");
+        }
     }
 }
+
 
 function boxClicked(event) {
     if (event.currentTarget.hasChildNodes() == false) {
         player *= (-1);
         const icon = document.createElement("img");
         if (player == 1) {
-            icon.src = iconX;
+            icon.src = iconX.path;
             icon.id = "iconX";
             event.currentTarget.className += " x";
         } else {
-            icon.src = iconO;
+            icon.src = iconO.path;
             icon.id = "iconO";
+            event.currentTarget.className += " o";
         }
         icon.className = "icon";
         event.target.append(icon);
@@ -128,10 +156,12 @@ function reset() {
 }
 
 function resetIcons() {
-    iconX = defaultPathX;
-    iconO = defaultPathO;
-    imgX.src = iconX;
-    imgO.src = iconO;
+    iconX.name = "iconX";
+    iconO.name = "iconO";
+    iconX.path = defaultPathX;
+    iconO.path = defaultPathO;
+    imgX.src = iconX.path;
+    imgO.src = iconO.path;
     changeIcons();
 }
 
@@ -139,9 +169,9 @@ function changeIcons() {
     for (const box of boxes) {
         if (box.hasChildNodes()) {
             if (box.firstChild.id == "iconX") {
-                box.firstChild.src = iconX;
+                box.firstChild.src = iconX.path;
             } else {
-                box.firstChild.src = iconO;
+                box.firstChild.src = iconO.path;
             }
         }
     }
