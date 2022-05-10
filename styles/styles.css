@@ -186,6 +186,7 @@ h2 {
     transition: 0.3s;
     width: 3em;
     height: 3em;
+    cursor: pointer;
 }
 
 .previewIcon:hover {

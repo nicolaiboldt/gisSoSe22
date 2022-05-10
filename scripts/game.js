@@ -31,6 +31,9 @@ const imgO = document.getElementById("previewIconO");
 const inputX = document.getElementById("inputX");
 const inputO = document.getElementById("inputO");
 
+const defaultPathX = "assets/img/x.png";
+const defaultPathO = "assets/img/o.png";
+
 imgX.addEventListener("click", function() {
     inputX.click();
 });
@@ -39,9 +42,9 @@ imgO.addEventListener("click", function() {
 });
 
 // eslint-disable-next-line prefer-const
-let iconX = "/assets/img/x.png";
+let iconX = defaultPathX;
 // eslint-disable-next-line prefer-const
-let iconO = "/assets/img/o.png";
+let iconO = defaultPathO;
 
 function uploadX(event) {
     if (event.target.files.length > 0) {
@@ -125,8 +128,8 @@ function reset() {
 }
 
 function resetIcons() {
-    iconX = "/assets/img/x.png";
-    iconO = "/assets/img/o.png";
+    iconX = defaultPathX;
+    iconO = defaultPathO;
     imgX.src = iconX;
     imgO.src = iconO;
     changeIcons();
