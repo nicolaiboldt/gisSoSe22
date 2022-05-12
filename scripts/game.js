@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-let feldIndex = 9;
 
 const c = document.querySelector(":root");
 let rangeColumns = document.getElementById("groesse").value;
@@ -8,22 +7,27 @@ const boxes = document.getElementsByClassName("grid-item");
 let player = -1;
 
 const board = document.getElementById("spiel");
+const endText = document.getElementsByClassName("endText")[0];
+
+let gameStarted = false;
 
 const drawBoard = () => {
-    for (const box of boxes) {
+    for (i = 0; i < boxes.length; i++) {
         let styleString = "";
-        if (box.id < rangeColumns * (rangeColumns - 2)) {
+        if (i < rangeColumns * (rangeColumns - 2)) {
             styleString += "border-bottom: 3px solid black;";
         }
-        if (box.id % rangeColumns < rangeColumns - 1) {
+        if (i % rangeColumns < rangeColumns - 1) {
             styleString += "border-right: 3px solid black;";
         }
-        if (box.id >= rangeColumns * (rangeColumns - 1)) {
+        if (i >= rangeColumns * (rangeColumns - 1)) {
             styleString += "border-top: 3px solid black;";
         }
-        box.style = styleString;
-        box.addEventListener("click", boxClicked);
+        boxes[i].style = styleString;
     };
+    for (const box of boxes) {
+        box.addEventListener("click", boxClicked);
+    }
 };
 
 drawBoard();
@@ -47,6 +51,10 @@ imgO.addEventListener("click", function() {
     inputO.click();
 });
 
+endText.addEventListener("click", function() {
+    reset();
+});
+
 // eslint-disable-next-line prefer-const
 /* let iconX = defaultPathX;*/
 // eslint-disable-next-line prefer-const
@@ -61,6 +69,7 @@ let iconO = {
     name: "iconO",
     path: defaultPathO
 };
+
 
 function uploadX(event) {
     if (event.target.files.length > 0) {
@@ -112,6 +121,8 @@ function boxClicked(event) {
         }
         icon.className = "icon";
         event.target.append(icon);
+
+        checkUnentschieden();
     }
 };
 
@@ -134,42 +145,74 @@ function updatePlayerUI() {
     }
 }
 
-// eslint-disable-next-line no-unused-vars
 function groessenChange() {
-    rangeColumns = document.getElementById("groesse").value;
+    if (rangeColumns != document.getElementById("groesse").value || gameStarted == false) {
+        rangeColumns = document.getElementById("groesse").value;
+        gameStarted = true;
 
-    c.style.setProperty("--columns", rangeColumns);
+        c.style.setProperty("--columns", rangeColumns);
 
-    const feldgroesse = 150 - ((rangeColumns - 3) * 25);
-    c.style.setProperty("--feldgroesse", feldgroesse + "px");
-    c.style.setProperty("--containerwidth", ((feldgroesse + 2) * rangeColumns) + "px");
+        const feldgroesse = 150 - ((rangeColumns - 3) * 25);
+        c.style.setProperty("--feldgroesse", feldgroesse + "px");
+        c.style.setProperty("--containerwidth", ((feldgroesse + 2) * rangeColumns) + "px");
 
-    const spiel = document.getElementById("spiel");
-    const anzahl = spiel.children.length;
-    const wunschAnzahl = rangeColumns * rangeColumns;
+        const spiel = document.getElementById("spiel");
+        const anzahl = spiel.children.length;
+        let columnsBefore = Math.sqrt(spiel.children.length);
+        const wunschAnzahl = rangeColumns * rangeColumns;
 
-    // add divs
-    if (anzahl < wunschAnzahl) {
-        for (i = 0; i < wunschAnzahl - anzahl; i++) {
-            const div = document.createElement("div");
-            div.className = "grid-item";
-            div.id = feldIndex;
-            spiel.append(div);
-            feldIndex++;
+        // add divs
+        if (anzahl < wunschAnzahl) {
+            while (columnsBefore < rangeColumns) {
+                for (i = 1; i <= columnsBefore; i++) {
+                    const div = document.createElement("div");
+                    div.className = "grid-item";
+                    spiel.append(div);
+                }
+                for (i = 1; i <= columnsBefore + 1; i++) {
+                    const div = document.createElement("div");
+                    div.className = "grid-item";
+                    spiel.children[(i * columnsBefore) - 2 + (1 * i)].after(div);
+                }
+                columnsBefore++;
+            }
+        } else if (anzahl > wunschAnzahl) {
+            while (columnsBefore > rangeColumns) {
+                for (i = 1; i < columnsBefore; i++) {
+                    spiel.children[i * (columnsBefore - 1)].remove();
+                }
+                for (i = 0; i < columnsBefore; i++) {
+                    spiel.removeChild(spiel.lastElementChild);
+                }
+                columnsBefore--;
+            }
         }
-    } else
-    if (anzahl > wunschAnzahl) {
-        for (i = 0; i < anzahl - wunschAnzahl; i++) {
-            spiel.removeChild(spiel.lastElementChild);
-            feldIndex--;
-        }
+        drawBoard();
+        switchPlayer();
+        checkUnentschieden();
     }
-    drawBoard();
 }
 
 groessenChange();
 randomPlayer();
 updatePlayerUI();
+
+function checkUnentschieden() {
+    let unentschieden = true;
+    for (const box of boxes) {
+        if (box.classList.contains("x") || box.classList.contains("o")) {
+        } else {
+            unentschieden = false;
+        }
+    };
+    if (unentschieden == true) {
+        endText.className += " show";
+        board.className += " show";
+    } else {
+        endText.classList.remove("show");
+        board.classList.remove("show");
+    }
+}
 
 function reset() {
     for (const box of boxes) {
@@ -179,16 +222,15 @@ function reset() {
         box.classList.remove("x");
         box.classList.remove("o");
     }
-
+    endText.classList.remove("show");
+    board.classList.remove("show");
     randomPlayer();
     updatePlayerUI();
 }
 
 function randomPlayer() {
     let random = Math.random();
-    console.log(random);
     random = Math.round(random);
-    console.log(random);
     if (random == 0) {
         random = -1;
     }
@@ -216,4 +258,5 @@ function changeIcons() {
         }
     }
 }
+
 

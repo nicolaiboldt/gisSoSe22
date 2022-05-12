@@ -26,11 +26,12 @@ footer,header,main,.content {
 }
 
 main{
-    margin-top: 1em;
+    margin-top: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 1em;
 }
 
 footer{
@@ -53,22 +54,17 @@ h1:hover{
     transform: scale(1.1);
 }
 
-
-a{
-    padding: 15px 32px;
-    text-decoration: none;
-    color: black;
-}
-
 nav{
     text-align: center;
-    padding-bottom: 14px;
     white-space: nowrap;
 }
 
 nav a{
     transition: 0.2s;
     border-radius: 20px;
+    padding: 15px 32px;
+    text-decoration: none;
+    color: black;
 }
 
 nav a:hover{
@@ -104,46 +100,23 @@ button:hover {
     
 }
 
-.intro {
-    display: flex;
-    justify-content: center;
-    margin-top: 1em;
-    gap: 1em;
-}
-.text {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.text p {
-    width: 100%;
-}
-
-.text button {
-    width:fit-content;
+#startbild {
+    width: 25%;
 }
 
 p {
     width: 60%;
+    margin: 0 auto;
 }
 
-/*.text p::first-letter{
-    font-size: 3em;
-    padding: 5px;
-    margin-right: 5px;
-    border: 2px solid black;
-    color: #f4511e;
-}*/
-
 #hfu_bild {
-    width: 50%;
+    width: 30%;
     transition:0.3s;
+    cursor: pointer;
 }
 
 #hfu_bild:hover{
-    transform: scale(0.95);
+    opacity: 60%;
 }
 
 .setting {
@@ -215,6 +188,27 @@ h2 {
     padding: 10px 15px;
 }
 
+.boardContainer {
+    position: relative;
+}
+
+.endText {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 2em;
+    border-radius: 20px;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 0 20px -10px black;
+}
+
+.endText.show {
+    display: block;
+    cursor: pointer;
+}
 
 #spiel {
     display: grid;
@@ -224,6 +218,15 @@ h2 {
     height: var(--containerwidth);
     margin: 0 auto;
     padding: 1em;
+    position: relative;
+}
+
+.board {
+    transition: 0.3s;
+}
+
+.board.show {
+    opacity: 30%;
 }
 
 .grid-item.x, .o:hover {
@@ -242,6 +245,10 @@ h2 {
     transition: 0.3s;
     cursor: pointer;
   }
+
+.grid-item.leel {
+    background-color: #f4511e;
+}
 
 .icon {
     image-rendering: auto;
