@@ -27,7 +27,7 @@
     <main>
         <div class = "setting">
             <h2>Spielfeldgröße</h2>
-            <div class="slider">
+            <div id="slider">
                 <input type="range" min="3" max="7" value="1" id="groesse" onclick="groessenChange()">
                 <div class="labels">
                     <label>3</label>
@@ -64,7 +64,10 @@
                 <div class="grid-item"></div>
                 <div class="grid-item"></div>
             </div>
-            <div class="endText" title="Reset">Unentschieden</div>
+            <div class="endscreen" title="Reset">
+                <img class="winningIcon" src="assets/img/x.png">
+                <div class="endText">gewinnt!</div>
+            </div>
         </div>
     </main>
     </div>

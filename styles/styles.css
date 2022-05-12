@@ -132,7 +132,7 @@ p {
     border-radius: 20px;
     
 }
-.slider{
+#slider{
     margin: 0em 1em;
 }
 
@@ -192,22 +192,39 @@ h2 {
     position: relative;
 }
 
-.endText {
+.endscreen {
     display: none;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    font-size: 2em;
     border-radius: 20px;
     padding: 1rem;
     background-color: white;
     box-shadow: 0 0 20px -10px black;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
 }
 
-.endText.show {
-    display: block;
+.endscreen.show {
+    display: flex;
     cursor: pointer;
+}
+
+.endText {
+    font-size: 2em;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.winningIcon {
+    width: 3em;
+    display: none;
+}
+
+.winningIcon.show {
+    display: block;
 }
 
 #spiel {
@@ -227,6 +244,8 @@ h2 {
 
 .board.show {
     opacity: 30%;
+    filter: blur(3px);
+    pointer-events: none;
 }
 
 .grid-item.x, .o:hover {
@@ -245,10 +264,6 @@ h2 {
     transition: 0.3s;
     cursor: pointer;
   }
-
-.grid-item.leel {
-    background-color: #f4511e;
-}
 
 .icon {
     image-rendering: auto;

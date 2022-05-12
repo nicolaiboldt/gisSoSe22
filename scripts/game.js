@@ -1,15 +1,21 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 
 const c = document.querySelector(":root");
 let rangeColumns = document.getElementById("groesse").value;
+const groesse = document.getElementById("groesse");
 
 const boxes = document.getElementsByClassName("grid-item");
 let player = -1;
 
 const board = document.getElementById("spiel");
+const endscreen = document.getElementsByClassName("endscreen")[0];
 const endText = document.getElementsByClassName("endText")[0];
+const winningIcon = document.getElementsByClassName("winningIcon")[0];
 
 let gameStarted = false;
+let playerWon = 0;
+let resetGame = false;
 
 const drawBoard = () => {
     for (i = 0; i < boxes.length; i++) {
@@ -51,14 +57,9 @@ imgO.addEventListener("click", function() {
     inputO.click();
 });
 
-endText.addEventListener("click", function() {
+endscreen.addEventListener("click", function() {
     reset();
 });
-
-// eslint-disable-next-line prefer-const
-/* let iconX = defaultPathX;*/
-// eslint-disable-next-line prefer-const
-/* let iconO = defaultPathO;*/
 
 let iconX = {
     name: "iconX",
@@ -107,7 +108,7 @@ function uploadO(event) {
 
 
 function boxClicked(event) {
-    if (event.currentTarget.hasChildNodes() == false) {
+    if (event.currentTarget.hasChildNodes() == false && playerWon == 0) {
         switchPlayer();
         const icon = document.createElement("img");
         if (player == 1) {
@@ -122,7 +123,7 @@ function boxClicked(event) {
         icon.className = "icon";
         event.target.append(icon);
 
-        checkUnentschieden();
+        checkWon();
     }
 };
 
@@ -146,7 +147,7 @@ function updatePlayerUI() {
 }
 
 function groessenChange() {
-    if (rangeColumns != document.getElementById("groesse").value || gameStarted == false) {
+    if (rangeColumns < document.getElementById("groesse").value || gameStarted == false || resetGame == true) {
         rangeColumns = document.getElementById("groesse").value;
         gameStarted = true;
 
@@ -187,9 +188,10 @@ function groessenChange() {
                 columnsBefore--;
             }
         }
+        resetGame = false;
         drawBoard();
         switchPlayer();
-        checkUnentschieden();
+        checkWon();
     }
 }
 
@@ -197,20 +199,58 @@ groessenChange();
 randomPlayer();
 updatePlayerUI();
 
-function checkUnentschieden() {
+function checkWon() {
     let unentschieden = true;
-    for (const box of boxes) {
-        if (box.classList.contains("x") || box.classList.contains("o")) {
-        } else {
-            unentschieden = false;
+    let countX = 0;
+    let countO = 0;
+    playerWon = 0;
+    let countsForWin = 4;
+    if (rangeColumns == 3) {
+        countsForWin = rangeColumns;
+    }
+
+    for (i = 0; i < rangeColumns; i++) {
+        for (j = 0; j < rangeColumns; j++) {
+            if (boxes[(i * rangeColumns) + j].classList.contains("x")) {
+                countX++;
+                countO = 0;
+            } else if (boxes[(i * rangeColumns) + j].classList.contains("o")) {
+                countO++;
+                countX = 0;
+            } else {
+                unentschieden = false;
+            }
+            if (countX == countsForWin) {
+                playerWon = 1;
+                break;
+            } else if (countO == countsForWin) {
+                playerWon = 2;
+                break;
+            }
         }
-    };
-    if (unentschieden == true) {
-        endText.className += " show";
+        countX = 0;
+        countO = 0;
+    }
+
+    if (unentschieden == true || playerWon != 0) {
+        if (playerWon == 1) {
+            endText.textContent = " gewinnt!";
+            winningIcon.className += " show";
+            winningIcon.src = iconX.path;
+        } else if (playerWon == 2) {
+            endText.textContent = " gewinnt!";
+            winningIcon.className += " show";
+            winningIcon.src = iconO.path;
+        } else {
+            endText.textContent = "Unentschieden!";
+        }
+        endscreen.className += " show";
         board.className += " show";
+        groesse.disabled = true;
     } else {
-        endText.classList.remove("show");
+        endscreen.classList.remove("show");
         board.classList.remove("show");
+        winningIcon.classList.remove("show");
     }
 }
 
@@ -222,8 +262,16 @@ function reset() {
         box.classList.remove("x");
         box.classList.remove("o");
     }
-    endText.classList.remove("show");
+    endscreen.classList.remove("show");
     board.classList.remove("show");
+    groesse.disabled = false;
+    playerWon = 0;
+
+    groesse.value = 3;
+    rangeColumns = 3;
+    resetGame = true;
+    groessenChange();
+
     randomPlayer();
     updatePlayerUI();
 }
