@@ -188,6 +188,10 @@ h2 {
     padding: 10px 15px;
 }
 
+#showNumbers {
+    display: none;
+}
+
 .boardContainer {
     position: relative;
 }
@@ -240,6 +244,7 @@ h2 {
 
 .board {
     transition: 0.3s;
+    overflow: hidden;
 }
 
 .board.show {
@@ -248,7 +253,7 @@ h2 {
     pointer-events: none;
 }
 
-.grid-item.x, .o:hover {
+.grid-item.x:hover, .grid-item.o:hover {
     cursor: not-allowed;
 }
 
@@ -264,6 +269,14 @@ h2 {
     transition: 0.3s;
     cursor: pointer;
   }
+
+.grid-item.high {
+    background-color: #f4511e;
+}
+
+.grid-item.low {
+    background-color: yellow;
+}
 
 .icon {
     image-rendering: auto;

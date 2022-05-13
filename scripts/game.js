@@ -16,6 +16,7 @@ const winningIcon = document.getElementsByClassName("winningIcon")[0];
 let gameStarted = false;
 let playerWon = 0;
 let resetGame = false;
+let numbers = -1;
 
 const drawBoard = () => {
     for (i = 0; i < boxes.length; i++) {
@@ -30,6 +31,11 @@ const drawBoard = () => {
             styleString += "border-top: 3px solid black;";
         }
         boxes[i].style = styleString;
+        /* if (numbers == 1) {
+            boxes[i].textContent = i;
+        } else {
+            boxes[i].textContent = "";
+        }*/
     };
     for (const box of boxes) {
         box.addEventListener("click", boxClicked);
@@ -152,8 +158,8 @@ function groessenChange() {
         gameStarted = true;
 
         c.style.setProperty("--columns", rangeColumns);
-
-        const feldgroesse = 150 - ((rangeColumns - 3) * 25);
+        const boardgroesse = 500;
+        let feldgroesse = (boardgroesse / rangeColumns) - 5;
         c.style.setProperty("--feldgroesse", feldgroesse + "px");
         c.style.setProperty("--containerwidth", ((feldgroesse + 2) * rangeColumns) + "px");
 
@@ -201,35 +207,132 @@ updatePlayerUI();
 
 function checkWon() {
     let unentschieden = true;
-    let countX = 0;
-    let countO = 0;
+    let counthX = 0;
+    let counthO = 0;
+
+    let countvX = 0;
+    let countvO = 0;
+
+    const countdX = [0, 0, 0, 0];
+    const countdO = [0, 0, 0, 0];
+
+    const countddX = [0, 0, 0, 0];
+    const countddO = [0, 0, 0, 0];
+
+    const countuX = [0, 0, 0, 0];
+    const countuO = [0, 0, 0, 0];
+
+    const countuuX = [0, 0, 0, 0];
+    const countuuO = [0, 0, 0, 0];
+
     playerWon = 0;
     let countsForWin = 4;
     if (rangeColumns == 3) {
         countsForWin = rangeColumns;
     }
 
+    const diaChecks = rangeColumns - countsForWin;
+
     for (i = 0; i < rangeColumns; i++) {
         for (j = 0; j < rangeColumns; j++) {
             if (boxes[(i * rangeColumns) + j].classList.contains("x")) {
-                countX++;
-                countO = 0;
+                counthX++;
+                counthO = 0;
             } else if (boxes[(i * rangeColumns) + j].classList.contains("o")) {
-                countO++;
-                countX = 0;
+                counthO++;
+                counthX = 0;
             } else {
+                counthX = 0;
+                counthO = 0;
                 unentschieden = false;
             }
-            if (countX == countsForWin) {
+
+            if (boxes[(j * rangeColumns) + i].classList.contains("x")) {
+                countvX++;
+                countvO = 0;
+            } else if (boxes[(j * rangeColumns) + i].classList.contains("o")) {
+                countvO++;
+                countvX = 0;
+            } else {
+                countvX = 0;
+                countvO = 0;
+            }
+
+            if (counthX == countsForWin || countvX == countsForWin) {
                 playerWon = 1;
                 break;
-            } else if (countO == countsForWin) {
+            } else if (counthO == countsForWin || countvO == countsForWin) {
                 playerWon = 2;
                 break;
             }
         }
-        countX = 0;
-        countO = 0;
+        counthX = 0;
+        counthO = 0;
+        countvX = 0;
+        countvO = 0;
+
+        for (k = 0; k <= diaChecks; k++) {
+            if ((k + (i * (parseInt(rangeColumns) + 1))) < (rangeColumns * rangeColumns) && (k + (i * (parseInt(rangeColumns) + 1))) < rangeColumns * (rangeColumns - k)) {
+                if (boxes[k + (i * (parseInt(rangeColumns) + 1))].classList.contains("x")) {
+                    countdX[k] += 1;
+                    countdO[k] = 0;
+                } else if (boxes[k + (i * (parseInt(rangeColumns) + 1))].classList.contains("o")) {
+                    countdO[k]++;
+                    countdX[k] = 0;
+                } else {
+                    countdX[k] = 0;
+                    countdO[k] = 0;
+                }
+            }
+
+            if ((k * (parseInt(rangeColumns))) + (i * (parseInt(rangeColumns) + 1)) < (rangeColumns * rangeColumns) && k != 0) {
+                if (boxes[((k) * (parseInt(rangeColumns))) + (i * (parseInt(rangeColumns) + 1))].classList.contains("x")) {
+                    countddX[k] += 1;
+                    countddO[k] = 0;
+                } else if (boxes[((k) * (parseInt(rangeColumns))) + (i * (parseInt(rangeColumns) + 1))].classList.contains("o")) {
+                    countddO[k] += 1;
+                    countddX[k] = 0;
+                } else {
+                    countddX[k] = 0;
+                    countddO[k] = 0;
+                }
+            }
+
+            // countUX
+
+            if ((k + (i * (parseInt(rangeColumns) + 1))) <= rangeColumns * (rangeColumns - k)) {
+                if (boxes[((i + 1) * (parseInt(rangeColumns) - 1)) - k].classList.contains("x")) {
+                    countuX[k] += 1;
+                    countuO[k] = 0;
+                } else if (boxes[((i + 1) * (parseInt(rangeColumns) - 1)) - k].classList.contains("o")) {
+                    countuO[k] += 1;
+                    countuX[k] = 0;
+                } else {
+                    countuX[k] = 0;
+                    countuO[k] = 0;
+                }
+            }
+
+            if (((i + 1) * (parseInt(rangeColumns) - 1)) + (k * parseInt(rangeColumns)) < (rangeColumns * rangeColumns) - 1 && k != 0) {
+                if (boxes[((i + 1) * (parseInt(rangeColumns) - 1)) + (k * parseInt(rangeColumns))].classList.contains("x")) {
+                    countuuX[k] += 1;
+                    countuuO[k] = 0;
+                } else if (boxes[((i + 1) * (parseInt(rangeColumns) - 1)) + (k * parseInt(rangeColumns))].classList.contains("o")) {
+                    countuuO[k] += 1;
+                    countuuX[k] = 0;
+                } else {
+                    countuuX[k] = 0;
+                    countuuO[k] = 0;
+                }
+            }
+
+
+            if (countdX[k] == countsForWin || countddX[k] == countsForWin || countuX[k] == countsForWin || countuuX[k] == countsForWin) {
+                playerWon = 1;
+            } else if (countdO[k] == countsForWin || countddO[k] == countsForWin || countuO[k] == countsForWin || countuuO[k] == countsForWin) {
+                playerWon = 2;
+            }
+        }
     }
 
     if (unentschieden == true || playerWon != 0) {
@@ -267,8 +370,8 @@ function reset() {
     groesse.disabled = false;
     playerWon = 0;
 
-    groesse.value = 3;
-    rangeColumns = 3;
+    // groesse.value = 3;
+    // rangeColumns = 3;
     resetGame = true;
     groessenChange();
 
@@ -305,6 +408,15 @@ function changeIcons() {
             }
         }
     }
+}
+
+
+// Debug: Show Numbers
+
+function showNumbers() {
+    numbers = numbers * (-1);
+    console.log(numbers);
+    reset();
 }
 
 
