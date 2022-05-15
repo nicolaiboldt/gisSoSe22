@@ -370,8 +370,8 @@ function reset() {
     groesse.disabled = false;
     playerWon = 0;
 
-    // groesse.value = 3;
-    // rangeColumns = 3;
+    groesse.value = 3;
+    rangeColumns = 3;
     resetGame = true;
     groessenChange();
 
