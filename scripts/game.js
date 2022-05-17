@@ -67,6 +67,12 @@ endscreen.addEventListener("click", function() {
     reset();
 });
 
+groesse.addEventListener("touchend", getouched());
+
+function getouched() {
+    alert("EHRE");
+    groessenChange();
+}
 
 let iconX = {
     name: "iconX",
