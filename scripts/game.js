@@ -67,7 +67,8 @@ endscreen.addEventListener("click", function() {
     reset();
 });
 
-groesse.addEventListener('touchmove',groessenChange());
+groesse.addEventListener("touchmove", groessenChange());
+groesse.addEventListener("touchend", groessenChange());
 
 let iconX = {
     name: "iconX",
@@ -161,7 +162,7 @@ function groessenChange() {
 
         c.style.setProperty("--columns", rangeColumns);
         const boardgroesse = 500;
-        let feldgroesse = (boardgroesse / rangeColumns) - 5;
+        const feldgroesse = (boardgroesse / rangeColumns) - 5;
         c.style.setProperty("--feldgroesse", feldgroesse + "px");
         c.style.setProperty("--containerwidth", ((feldgroesse + 2) * rangeColumns) + "px");
 

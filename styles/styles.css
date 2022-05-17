@@ -253,7 +253,7 @@ h2 {
 
 .board.show {
     opacity: 30%;
-    filter: blur(3px);
+    /*filter: blur(3px);*/
     pointer-events: none;
 }
 
