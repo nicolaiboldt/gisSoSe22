@@ -67,6 +67,8 @@ endscreen.addEventListener("click", function() {
     reset();
 });
 
+groesse.addEventListener('touchmove',groessenChange());
+
 let iconX = {
     name: "iconX",
     path: defaultPathX
