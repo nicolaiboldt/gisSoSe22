@@ -230,6 +230,9 @@ function checkWon() {
     if (rangeColumns == 3) {
         countsForWin = rangeColumns;
     }
+    if (rangeColumns >= 6) {
+        countsForWin = 5;
+    }
 
     const diaChecks = rangeColumns - countsForWin;
 
