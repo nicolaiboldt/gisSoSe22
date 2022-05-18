@@ -208,20 +208,38 @@ let winBoxesO = [];
 let winBoxesvX = [];
 let winBoxesvO = [];
 
+let winBoxesdX = [[], [], [], []];
+let winBoxesdO = [[], [], [], []];
+
+let winBoxesddX = [[], [], [], []];
+let winBoxesddO = [[], [], [], []];
+
+let winBoxesuX = [[], [], [], []];
+let winBoxesuO = [[], [], [], []];
+
+let winBoxesuuX = [[], [], [], []];
+let winBoxesuuO = [[], [], [], []];
+
+let horizontal;
+let vertical;
+let diagonal;
+let dDiagonal;
+let uDiagonal;
+let uuDiagonal;
+
+let countsForWin;
+
+let unentschieden;
+
+let diaChecks;
+
 groessenChange();
 randomPlayer();
 updatePlayerUI();
 
 function checkWon() {
     console.log("--- checkWon ---");
-    let unentschieden = true;
-
-    let horizontal;
-    let vertical;
-    let diagonal;
-    let dDiagonal;
-    let uDiagonal;
-    let uuDiagonal;
+    unentschieden = true;
 
     winBoxesX = [];
     winBoxesO = [];
@@ -229,20 +247,20 @@ function checkWon() {
     winBoxesvX = [];
     winBoxesvO = [];
 
-    const winBoxesdX = [[], [], [], []];
-    const winBoxesdO = [[], [], [], []];
+    winBoxesdX = [[], [], [], []];
+    winBoxesdO = [[], [], [], []];
 
-    const winBoxesddX = [[], [], [], []];
-    const winBoxesddO = [[], [], [], []];
+    winBoxesddX = [[], [], [], []];
+    winBoxesddO = [[], [], [], []];
 
-    const winBoxesuX = [[], [], [], []];
-    const winBoxesuO = [[], [], [], []];
+    winBoxesuX = [[], [], [], []];
+    winBoxesuO = [[], [], [], []];
 
-    const winBoxesuuX = [[], [], [], []];
-    const winBoxesuuO = [[], [], [], []];
+    winBoxesuuX = [[], [], [], []];
+    winBoxesuuO = [[], [], [], []];
 
     playerWon = 0;
-    let countsForWin = 4;
+    countsForWin = 4;
     if (rangeColumns == 3) {
         countsForWin = rangeColumns;
     }
@@ -250,7 +268,7 @@ function checkWon() {
         countsForWin = 5;
     }
 
-    const diaChecks = rangeColumns - countsForWin;
+    diaChecks = rangeColumns - countsForWin;
 
     for (i = 0; i < rangeColumns; i++) {
         for (j = 0; j < rangeColumns; j++) {
