@@ -255,12 +255,11 @@ function checkWon() {
     for (i = 0; i < rangeColumns; i++) {
         for (j = 0; j < rangeColumns; j++) {
             horizontal = (i * rangeColumns) + j;
-            checkedBox = boxes[horizontal];
 
-            if (checkedBox.classList.contains("x")) {
+            if (boxes[horizontal].classList.contains("x")) {
                 winBoxesO = [];
                 winBoxesX.push(horizontal);
-            } else if (checkedBox.classList.contains("o")) {
+            } else if (boxes[horizontal].classList.contains("o")) {
                 winBoxesX = [];
                 winBoxesO.push(horizontal);
             } else {
@@ -270,12 +269,11 @@ function checkWon() {
             }
 
             vertical = (j * rangeColumns) + i;
-            checkedBox = boxes[vertical];
 
-            if (checkedBox.classList.contains("x")) {
+            if (boxes[vertical].classList.contains("x")) {
                 winBoxesvO = [];
                 winBoxesvX.push(vertical);
-            } else if (checkedBox.classList.contains("o")) {
+            } else if (boxes[vertical].classList.contains("o")) {
                 winBoxesvX = [];
                 winBoxesvO.push(vertical);
             } else {
@@ -284,6 +282,7 @@ function checkWon() {
             }
 
             if (winBoxesX.length == countsForWin || winBoxesvX.length == countsForWin) {
+                // console.log("HV X ausgelöst");
                 playerWon = 1;
                 if (winBoxesX.length == countsForWin) {
                     for (const boxCount of winBoxesX) {
@@ -297,6 +296,7 @@ function checkWon() {
                 break;
             } else if (winBoxesO.length == countsForWin || winBoxesvO.length == countsForWin) {
                 playerWon = 2;
+                // console.log("HV O ausgelöst");
                 if (winBoxesO.length == countsForWin) {
                     for (const boxCount of winBoxesO) {
                         boxes[boxCount].className += " high";
@@ -309,6 +309,11 @@ function checkWon() {
                 break;
             }
         }
+
+        winBoxesX = [];
+        winBoxesO = [];
+        winBoxesvX = [];
+        winBoxesvO = [];
 
         for (k = 0; k <= diaChecks; k++) {
             diagonal = k + (i * (parseInt(rangeColumns) + 1));
@@ -371,6 +376,7 @@ function checkWon() {
 
 
             if (winBoxesdX[k].length == countsForWin || winBoxesddX[k].length == countsForWin || winBoxesuX[k].length == countsForWin || winBoxesuuX[k].length == countsForWin) {
+                // console.log("D X ausgelöst");
                 if (winBoxesdX[k].length == countsForWin) {
                     for (const boxCount of winBoxesdX[k]) {
                         boxes[boxCount].className += " high";
@@ -389,8 +395,9 @@ function checkWon() {
                     }
                 }
                 playerWon = 1;
-                break;
+                // break;
             } else if (winBoxesdO[k].length == countsForWin || winBoxesddO[k].length == countsForWin || winBoxesuO[k].length == countsForWin || winBoxesuuO[k].length == countsForWin) {
+                // console.log("D O ausgelöst");
                 if (winBoxesdO[k].length == countsForWin) {
                     for (const boxCount of winBoxesdO[k]) {
                         boxes[boxCount].className += " high";
