@@ -202,29 +202,44 @@ function groessenChange() {
     }
 }
 
+let winBoxesX = [];
+let winBoxesO = [];
+
+let winBoxesvX = [];
+let winBoxesvO = [];
+
 groessenChange();
 randomPlayer();
 updatePlayerUI();
 
 function checkWon() {
+    console.log("--- checkWon ---");
     let unentschieden = true;
-    let counthX = 0;
-    let counthO = 0;
 
-    let countvX = 0;
-    let countvO = 0;
+    let horizontal;
+    let vertical;
+    let diagonal;
+    let dDiagonal;
+    let uDiagonal;
+    let uuDiagonal;
 
-    const countdX = [0, 0, 0, 0];
-    const countdO = [0, 0, 0, 0];
+    winBoxesX = [];
+    winBoxesO = [];
 
-    const countddX = [0, 0, 0, 0];
-    const countddO = [0, 0, 0, 0];
+    winBoxesvX = [];
+    winBoxesvO = [];
 
-    const countuX = [0, 0, 0, 0];
-    const countuO = [0, 0, 0, 0];
+    const winBoxesdX = [[], [], [], []];
+    const winBoxesdO = [[], [], [], []];
 
-    const countuuX = [0, 0, 0, 0];
-    const countuuO = [0, 0, 0, 0];
+    const winBoxesddX = [[], [], [], []];
+    const winBoxesddO = [[], [], [], []];
+
+    const winBoxesuX = [[], [], [], []];
+    const winBoxesuO = [[], [], [], []];
+
+    const winBoxesuuX = [[], [], [], []];
+    const winBoxesuuO = [[], [], [], []];
 
     playerWon = 0;
     let countsForWin = 4;
@@ -239,102 +254,162 @@ function checkWon() {
 
     for (i = 0; i < rangeColumns; i++) {
         for (j = 0; j < rangeColumns; j++) {
-            if (boxes[(i * rangeColumns) + j].classList.contains("x")) {
-                counthX++;
-                counthO = 0;
-            } else if (boxes[(i * rangeColumns) + j].classList.contains("o")) {
-                counthO++;
-                counthX = 0;
+            horizontal = (i * rangeColumns) + j;
+            checkedBox = boxes[horizontal];
+
+            if (checkedBox.classList.contains("x")) {
+                winBoxesO = [];
+                winBoxesX.push(horizontal);
+            } else if (checkedBox.classList.contains("o")) {
+                winBoxesX = [];
+                winBoxesO.push(horizontal);
             } else {
-                counthX = 0;
-                counthO = 0;
                 unentschieden = false;
+                winBoxesX = [];
+                winBoxesO = [];
             }
 
-            if (boxes[(j * rangeColumns) + i].classList.contains("x")) {
-                countvX++;
-                countvO = 0;
-            } else if (boxes[(j * rangeColumns) + i].classList.contains("o")) {
-                countvO++;
-                countvX = 0;
+            vertical = (j * rangeColumns) + i;
+            checkedBox = boxes[vertical];
+
+            if (checkedBox.classList.contains("x")) {
+                winBoxesvO = [];
+                winBoxesvX.push(vertical);
+            } else if (checkedBox.classList.contains("o")) {
+                winBoxesvX = [];
+                winBoxesvO.push(vertical);
             } else {
-                countvX = 0;
-                countvO = 0;
+                winBoxesvX = [];
+                winBoxesvO = [];
             }
 
-            if (counthX == countsForWin || countvX == countsForWin) {
+            if (winBoxesX.length == countsForWin || winBoxesvX.length == countsForWin) {
                 playerWon = 1;
+                if (winBoxesX.length == countsForWin) {
+                    for (const boxCount of winBoxesX) {
+                        boxes[boxCount].className += " high";
+                    }
+                } else {
+                    for (const boxCount of winBoxesvX) {
+                        boxes[boxCount].className += " high";
+                    }
+                }
                 break;
-            } else if (counthO == countsForWin || countvO == countsForWin) {
+            } else if (winBoxesO.length == countsForWin || winBoxesvO.length == countsForWin) {
                 playerWon = 2;
+                if (winBoxesO.length == countsForWin) {
+                    for (const boxCount of winBoxesO) {
+                        boxes[boxCount].className += " high";
+                    }
+                } else {
+                    for (const boxCount of winBoxesvO) {
+                        boxes[boxCount].className += " high";
+                    }
+                }
                 break;
             }
         }
-        counthX = 0;
-        counthO = 0;
-        countvX = 0;
-        countvO = 0;
 
         for (k = 0; k <= diaChecks; k++) {
-            if ((k + (i * (parseInt(rangeColumns) + 1))) < (rangeColumns * rangeColumns) && (k + (i * (parseInt(rangeColumns) + 1))) < rangeColumns * (rangeColumns - k)) {
-                if (boxes[k + (i * (parseInt(rangeColumns) + 1))].classList.contains("x")) {
-                    countdX[k] += 1;
-                    countdO[k] = 0;
+            diagonal = k + (i * (parseInt(rangeColumns) + 1));
+            if (diagonal < (rangeColumns * rangeColumns) && (diagonal) < rangeColumns * (rangeColumns - k)) {
+                if (boxes[diagonal].classList.contains("x")) {
+                    winBoxesdX[k].push(diagonal);
+                    winBoxesdO[k] = [];
                 } else if (boxes[k + (i * (parseInt(rangeColumns) + 1))].classList.contains("o")) {
-                    countdO[k]++;
-                    countdX[k] = 0;
+                    winBoxesdO[k].push(diagonal);
+                    winBoxesdX[k] = [];
                 } else {
-                    countdX[k] = 0;
-                    countdO[k] = 0;
+                    winBoxesdX[k] = [];
+                    winBoxesdO[k] = [];
                 }
             }
 
-            if ((k * (parseInt(rangeColumns))) + (i * (parseInt(rangeColumns) + 1)) < (rangeColumns * rangeColumns) && k != 0) {
-                if (boxes[((k) * (parseInt(rangeColumns))) + (i * (parseInt(rangeColumns) + 1))].classList.contains("x")) {
-                    countddX[k] += 1;
-                    countddO[k] = 0;
-                } else if (boxes[((k) * (parseInt(rangeColumns))) + (i * (parseInt(rangeColumns) + 1))].classList.contains("o")) {
-                    countddO[k] += 1;
-                    countddX[k] = 0;
+            dDiagonal = ((k) * (parseInt(rangeColumns))) + (i * (parseInt(rangeColumns) + 1));
+
+            if (dDiagonal < (rangeColumns * rangeColumns) && k != 0) {
+                if (boxes[dDiagonal].classList.contains("x")) {
+                    winBoxesddX[k].push(dDiagonal);
+                    winBoxesddO[k] = [];
+                } else if (boxes[dDiagonal].classList.contains("o")) {
+                    winBoxesddO[k].push(dDiagonal);
+                    winBoxesddX[k] = [];
                 } else {
-                    countddX[k] = 0;
-                    countddO[k] = 0;
+                    winBoxesddX[k] = [];
+                    winBoxesddO[k] = [];
                 }
             }
 
             // countUX
-
+            uDiagonal = ((i + 1) * (parseInt(rangeColumns) - 1)) - k;
             if ((k + (i * (parseInt(rangeColumns) + 1))) <= rangeColumns * (rangeColumns - k)) {
-                if (boxes[((i + 1) * (parseInt(rangeColumns) - 1)) - k].classList.contains("x")) {
-                    countuX[k] += 1;
-                    countuO[k] = 0;
-                } else if (boxes[((i + 1) * (parseInt(rangeColumns) - 1)) - k].classList.contains("o")) {
-                    countuO[k] += 1;
-                    countuX[k] = 0;
+                if (boxes[uDiagonal].classList.contains("x")) {
+                    winBoxesuX[k].push(uDiagonal);
+                    winBoxesuO[k] = [];
+                } else if (boxes[uDiagonal].classList.contains("o")) {
+                    winBoxesuO[k].push(uDiagonal);
+                    winBoxesuX[k] = [];
                 } else {
-                    countuX[k] = 0;
-                    countuO[k] = 0;
+                    winBoxesuX[k] = [];
+                    winBoxesuO[k] = [];
                 }
             }
+            uuDiagonal = ((i + 1) * (parseInt(rangeColumns) - 1)) + (k * parseInt(rangeColumns));
 
             if (((i + 1) * (parseInt(rangeColumns) - 1)) + (k * parseInt(rangeColumns)) < (rangeColumns * rangeColumns) - 1 && k != 0) {
-                if (boxes[((i + 1) * (parseInt(rangeColumns) - 1)) + (k * parseInt(rangeColumns))].classList.contains("x")) {
-                    countuuX[k] += 1;
-                    countuuO[k] = 0;
-                } else if (boxes[((i + 1) * (parseInt(rangeColumns) - 1)) + (k * parseInt(rangeColumns))].classList.contains("o")) {
-                    countuuO[k] += 1;
-                    countuuX[k] = 0;
+                if (boxes[uuDiagonal].classList.contains("x")) {
+                    winBoxesuuX[k].push(uuDiagonal);
+                    winBoxesuuO[k] = [];
+                } else if (boxes[uuDiagonal].classList.contains("o")) {
+                    winBoxesuuO[k].push(uuDiagonal);
+                    winBoxesuuX[k] = [];
                 } else {
-                    countuuX[k] = 0;
-                    countuuO[k] = 0;
+                    winBoxesuuX[k] = [];
+                    winBoxesuuO[k] = [];
                 }
             }
 
 
-            if (countdX[k] == countsForWin || countddX[k] == countsForWin || countuX[k] == countsForWin || countuuX[k] == countsForWin) {
+            if (winBoxesdX[k].length == countsForWin || winBoxesddX[k].length == countsForWin || winBoxesuX[k].length == countsForWin || winBoxesuuX[k].length == countsForWin) {
+                if (winBoxesdX[k].length == countsForWin) {
+                    for (const boxCount of winBoxesdX[k]) {
+                        boxes[boxCount].className += " high";
+                    }
+                } else if (winBoxesddX[k].length == countsForWin) {
+                    for (const boxCount of winBoxesddX[k]) {
+                        boxes[boxCount].className += " high";
+                    }
+                } else if (winBoxesuX[k].length == countsForWin) {
+                    for (const boxCount of winBoxesuX[k]) {
+                        boxes[boxCount].className += " high";
+                    }
+                } else if (winBoxesuuX[k].length == countsForWin) {
+                    for (const boxCount of winBoxesuuX[k]) {
+                        boxes[boxCount].className += " high";
+                    }
+                }
                 playerWon = 1;
-            } else if (countdO[k] == countsForWin || countddO[k] == countsForWin || countuO[k] == countsForWin || countuuO[k] == countsForWin) {
+                break;
+            } else if (winBoxesdO[k].length == countsForWin || winBoxesddO[k].length == countsForWin || winBoxesuO[k].length == countsForWin || winBoxesuuO[k].length == countsForWin) {
+                if (winBoxesdO[k].length == countsForWin) {
+                    for (const boxCount of winBoxesdO[k]) {
+                        boxes[boxCount].className += " high";
+                    }
+                } else if (winBoxesddO[k].length == countsForWin) {
+                    for (const boxCount of winBoxesddO[k]) {
+                        boxes[boxCount].className += " high";
+                    }
+                } else if (winBoxesuO[k].length == countsForWin) {
+                    for (const boxCount of winBoxesuO[k]) {
+                        boxes[boxCount].className += " high";
+                    }
+                } else if (winBoxesuuO[k].length == countsForWin) {
+                    for (const boxCount of winBoxesuuO[k]) {
+                        boxes[boxCount].className += " high";
+                    }
+                }
                 playerWon = 2;
+                break;
             }
         }
     }
@@ -362,13 +437,17 @@ function checkWon() {
 }
 
 function reset() {
+    console.log("RESET");
+
     for (const box of boxes) {
+        box.classList.remove("high");
         if (box.hasChildNodes()) {
             box.removeChild(box.firstChild);
         }
         box.classList.remove("x");
         box.classList.remove("o");
     }
+
     endscreen.classList.remove("show");
     board.classList.remove("show");
     groesse.disabled = false;
