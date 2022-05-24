@@ -109,10 +109,10 @@ const drawBoard = () => {
 
 drawBoard();
 
-groesse.addEventListener("touchstart", groessenChange());
+/*groesse.addEventListener("touchstart", groessenChange());
 groesse.addEventListener("touchmove", groessenChange());
 groesse.addEventListener("touchend", groessenChange());
-groesse.addEventListener("touchcancel", groessenChange());
+groesse.addEventListener("touchcancel", groessenChange());*/
 
 function uploadX(event) {
     if (event.target.files.length > 0) {
