@@ -81,7 +81,7 @@ nav a:hover{
     color: white;
 }
 
-button{
+button, button:active{
     background-color: #f4511e;
     display: flexbox;
     border: none;
@@ -95,12 +95,15 @@ button{
 
 }
 
-button:hover {
-    cursor: pointer;
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    transform: scale(1.1);
+@media (hover: hover) {
+    button:hover {
+        cursor: pointer;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        transform: scale(1.1);
+  }
+
     
 }
 

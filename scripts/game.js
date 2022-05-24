@@ -103,16 +103,11 @@ const drawBoard = () => {
         }*/
     };
     for (const box of boxes) {
-        box.addEventListener("click", boxClicked);
+        box.addEventListener("mousedown", boxClicked);
     }
 };
 
 drawBoard();
-
-/*groesse.addEventListener("touchstart", groessenChange());
-groesse.addEventListener("touchmove", groessenChange());
-groesse.addEventListener("touchend", groessenChange());
-groesse.addEventListener("touchcancel", groessenChange());*/
 
 function uploadX(event) {
     if (event.target.files.length > 0) {
