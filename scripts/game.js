@@ -18,6 +18,71 @@ let playerWon = 0;
 let resetGame = false;
 let numbers = -1;
 
+let winBoxesX = [];
+let winBoxesO = [];
+
+let winBoxesvX = [];
+let winBoxesvO = [];
+
+let winBoxesdX = [[], [], [], []];
+let winBoxesdO = [[], [], [], []];
+
+let winBoxesddX = [[], [], [], []];
+let winBoxesddO = [[], [], [], []];
+
+let winBoxesuX = [[], [], [], []];
+let winBoxesuO = [[], [], [], []];
+
+let winBoxesuuX = [[], [], [], []];
+let winBoxesuuO = [[], [], [], []];
+
+let horizontal;
+let vertical;
+let diagonal;
+let dDiagonal;
+let uDiagonal;
+let uuDiagonal;
+
+let countsForWin;
+
+let unentschieden;
+
+let diaChecks;
+
+
+const auswahlX = document.getElementById("auswahlX");
+const auswahlO = document.getElementById("auswahlO");
+
+
+const imgX = document.getElementById("previewIconX");
+const imgO = document.getElementById("previewIconO");
+const inputX = document.getElementById("inputX");
+const inputO = document.getElementById("inputO");
+
+const defaultPathX = "assets/img/x.png";
+const defaultPathO = "assets/img/o.png";
+
+let iconX = {
+    name: "iconX",
+    path: defaultPathX
+};
+
+let iconO = {
+    name: "iconO",
+    path: defaultPathO
+};
+
+imgX.addEventListener("click", function() {
+    inputX.click();
+});
+imgO.addEventListener("click", function() {
+    inputO.click();
+});
+
+endscreen.addEventListener("click", function() {
+    reset();
+});
+
 const drawBoard = () => {
     for (i = 0; i < boxes.length; i++) {
         let styleString = "";
@@ -44,45 +109,10 @@ const drawBoard = () => {
 
 drawBoard();
 
-const auswahlX = document.getElementById("auswahlX");
-const auswahlO = document.getElementById("auswahlO");
-
-
-const imgX = document.getElementById("previewIconX");
-const imgO = document.getElementById("previewIconO");
-const inputX = document.getElementById("inputX");
-const inputO = document.getElementById("inputO");
-
-const defaultPathX = "assets/img/x.png";
-const defaultPathO = "assets/img/o.png";
-
-imgX.addEventListener("click", function() {
-    inputX.click();
-});
-imgO.addEventListener("click", function() {
-    inputO.click();
-});
-
-endscreen.addEventListener("click", function() {
-    reset();
-});
-
 groesse.addEventListener("touchstart", groessenChange());
 groesse.addEventListener("touchmove", groessenChange());
 groesse.addEventListener("touchend", groessenChange());
 groesse.addEventListener("touchcancel", groessenChange());
-
-
-let iconX = {
-    name: "iconX",
-    path: defaultPathX
-};
-
-let iconO = {
-    name: "iconO",
-    path: defaultPathO
-};
-
 
 function uploadX(event) {
     if (event.target.files.length > 0) {
@@ -206,37 +236,6 @@ function groessenChange() {
         checkWon();
     }
 }
-
-let winBoxesX = [];
-let winBoxesO = [];
-
-let winBoxesvX = [];
-let winBoxesvO = [];
-
-let winBoxesdX = [[], [], [], []];
-let winBoxesdO = [[], [], [], []];
-
-let winBoxesddX = [[], [], [], []];
-let winBoxesddO = [[], [], [], []];
-
-let winBoxesuX = [[], [], [], []];
-let winBoxesuO = [[], [], [], []];
-
-let winBoxesuuX = [[], [], [], []];
-let winBoxesuuO = [[], [], [], []];
-
-let horizontal;
-let vertical;
-let diagonal;
-let dDiagonal;
-let uDiagonal;
-let uuDiagonal;
-
-let countsForWin;
-
-let unentschieden;
-
-let diaChecks;
 
 groessenChange();
 randomPlayer();
