@@ -67,6 +67,11 @@ endscreen.addEventListener("click", function() {
     reset();
 });
 
+groesse.addEventListener("touchstart", groessenChange());
+groesse.addEventListener("touchmove", groessenChange());
+groesse.addEventListener("touchend", groessenChange());
+groesse.addEventListener("touchcancel", groessenChange());
+
 
 let iconX = {
     name: "iconX",
