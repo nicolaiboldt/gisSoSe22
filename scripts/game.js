@@ -2,8 +2,10 @@
 /* eslint-disable no-unused-vars */
 
 const c = document.querySelector(":root");
-let rangeColumns = document.getElementById("groesse").value;
 const groesse = document.getElementById("groesse");
+let rangeColumns = groesse.value;
+let valueBefore = groesse.value;
+const labels = document.getElementsByClassName("sliderLabel");
 
 const boxes = document.getElementsByClassName("grid-item");
 let player = -1;
@@ -81,6 +83,16 @@ imgO.addEventListener("click", function() {
 
 endscreen.addEventListener("click", function() {
     reset();
+});
+
+groesse.addEventListener("mousedown", function() {
+    valueBefore = groesse.value;
+});
+
+groesse.addEventListener("mouseup", function() {
+    if (groesse.value != valueBefore) {
+        switchPlayer();
+    }
 });
 
 const drawBoard = () => {
@@ -227,8 +239,16 @@ function groessenChange() {
         }
         resetGame = false;
         drawBoard();
-        switchPlayer();
+        // switchPlayer();
         checkWon();
+    } else {
+        groesse.value = rangeColumns;
+    }
+
+    for (const l of labels) {
+        if (l.textContent < rangeColumns && !l.classList.contains("disabled")) {
+            l.className += " disabled";
+        }
     }
 }
 
@@ -470,6 +490,10 @@ function reset() {
         }
         box.classList.remove("x");
         box.classList.remove("o");
+    }
+
+    for (const l of labels) {
+        l.classList.remove("disabled");
     }
 
     endscreen.classList.remove("show");
