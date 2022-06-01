@@ -278,7 +278,7 @@ function checkWon() {
     winBoxesuuX = [[], [], [], []];
     winBoxesuuO = [[], [], [], []];
 
-    playerWon = 0;
+    // playerWon = 0;
     countsForWin = 4;
     if (rangeColumns == 3) {
         countsForWin = rangeColumns;
@@ -459,16 +459,24 @@ function checkWon() {
     }
 
     if (unentschieden == true || playerWon != 0) {
+        // Server Post
+
+        sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: rangeColumns }));
+
+
         if (playerWon == 1) {
             endText.textContent = " gewinnt!";
             winningIcon.className += " show";
             winningIcon.src = iconX.path;
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ winner: "Player X" }));
         } else if (playerWon == 2) {
             endText.textContent = " gewinnt!";
             winningIcon.className += " show";
             winningIcon.src = iconO.path;
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ winner: "Player O" }));
         } else {
             endText.textContent = "Unentschieden!";
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ winner: "Tie" }));
         }
         endscreen.className += " show";
         board.className += " show";
@@ -548,6 +556,23 @@ function showNumbers() {
     numbers = numbers * (-1);
     console.log(numbers);
     reset();
+}
+
+// Debug: Win erzwingen
+
+function winErzwingen() {
+    console.log("win geforced lol");
+    playerWon = 1;
+    checkWon();
+}
+
+// SERVER
+
+async function sendJSONStringWithPOST(url, jsonString) {
+    const response = await fetch(url, {
+        method: "post",
+        body: jsonString
+    });
 }
 
 

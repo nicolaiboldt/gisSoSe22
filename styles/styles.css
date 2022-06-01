@@ -53,6 +53,12 @@ h1{
     transition: 0.3s;
 }
 
+.start_heins {
+    opacity: 0%;
+    animation: slideInTop 1s 3.5s;
+    animation-fill-mode: forwards;
+}
+
 h1:hover{
     transform-origin: center;
     transform: scale(1.1);
@@ -62,7 +68,12 @@ nav{
     
     text-align: center;
     white-space: nowrap;
+}
 
+.start_nav {
+    opacity: 0%;
+    animation: slideInTop 1s 3.5s;
+    animation-fill-mode: forwards;
 }
 
 nav a{
@@ -109,14 +120,94 @@ button, button:active{
     
 }
 
-#startbild {
-    width: 25%;
-}
-
 p {
     width: 60%;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
 }
+
+.start_desc {
+    font-size: 1.4em;
+    text-align: center;
+    width: 100%;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    margin-bottom: 1em;
+    animation: heySlide 0.5s 3s;
+    animation-fill-mode: both;
+}
+
+.textContent {
+    width: 100%;
+    margin-bottom: 1em;
+    animation: slideInTopSlow 0.5s 3s;
+    animation-fill-mode: both;
+}
+
+.start_content {
+    width: 70%;
+    opacity: 0%;
+    animation: slideInTopSlow 1s 3.5s; 
+    animation-fill-mode: forwards;
+}
+
+.hi {    
+    display: grid;
+    grid-template-columns:  repeat(5,auto);
+    column-gap: 0px;
+    width: 12em;
+    height: 12em;
+}
+
+.grid {
+    width: 2.4em;
+    height: 2.4em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+
+    border: none;
+}
+
+
+.iconStart {
+    image-rendering: auto;
+    object-fit: contain;
+    height: 75%;
+    width: 80%;
+    /*will-change: transform;*/
+    animation: appear 0.3s cubic-bezier(0.5,1.2,0.1,1.1);
+}
+
+#start_point {
+    font-size: 15em;
+    width: fit-content;
+    height: max-content;
+    padding: 0px;
+    line-height: 0%;
+    margin: 0;
+}
+
+.start_button {
+    opacity: 0%;
+    animation: appear 0.5s 3.5s;
+    animation-fill-mode: forwards;
+}
+
+.start_footer {
+    opacity: 0%;
+    animation: slideInTopSlow 0.5s 3.5s;
+    animation-fill-mode: forwards;
+}
+
 
 #hfu_bild {
     width: 30%;
@@ -145,8 +236,21 @@ p {
     margin: 0em 1em;
 }
 
+.start_slider {
+    margin: 0em 1em;
+    box-shadow: 0 0 20px -10px black;
+    padding: 2em;
+    width: fit-content;
+    border-radius: 20px;
+    float:inline-start;
+}
+
 h2 {
     margin: 0;
+}
+
+.start_hzwei {
+    font-size: 2.1em;
 }
 
 .labels {
@@ -313,3 +417,35 @@ h2 {
     filter: blur(0px);
     }
 }
+
+@keyframes slideInTop {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0%;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 100%;
+    }
+  }
+
+  @keyframes slideInTopSlow {
+    0% {
+      transform: translateY(-5%);
+      opacity: 0%;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 100%;
+    }
+  }
+
+  @keyframes heySlide {
+    0% {
+      transform: translateY(80%);
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 100%;
+    }
+  }
