@@ -136,9 +136,10 @@ p {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 1em;
+    gap: 2em;
     width: 100%;
-    margin-bottom: 1em;
+    margin-bottom: 3em;
+    margin-top: 3em;
     animation: heySlide 0.5s 3s;
     animation-fill-mode: both;
 }
@@ -146,14 +147,14 @@ p {
 .textContent {
     width: 100%;
     margin-bottom: 1em;
-    animation: slideInTopSlow 0.5s 3s;
+    animation: slideInTop 0.5s 3s;
     animation-fill-mode: both;
 }
 
 .start_content {
     width: 70%;
     opacity: 0%;
-    animation: slideInTopSlow 1s 3.5s; 
+    animation: slideInTop 1s 3.5s; 
     animation-fill-mode: forwards;
 }
 
@@ -187,24 +188,38 @@ p {
     animation: appear 0.3s cubic-bezier(0.5,1.2,0.1,1.1);
 }
 
-#start_point {
-    font-size: 15em;
-    width: fit-content;
-    height: max-content;
-    padding: 0px;
-    line-height: 0%;
-    margin: 0;
+.start_button {
+    font-size: 2em;
+    font-weight: 800;
+    opacity: 0%;
+    animation: appear 0.5s 4s;
+    animation-fill-mode: forwards;
 }
 
-.start_button {
+
+
+.start_button_sec {
+    background-color: white;
+    color:black;
+    border-color: black;
+    font-size: 1.3em;
     opacity: 0%;
-    animation: appear 0.5s 3.5s;
+    animation: appear 0.5s 4s;
     animation-fill-mode: forwards;
+}
+
+.start_button_sec:hover {
+    transition: btnHover 1s;
+}
+
+.start_buttonleiste {
+    display: flex;
+    gap: 2em;
 }
 
 .start_footer {
     opacity: 0%;
-    animation: slideInTopSlow 0.5s 3.5s;
+    animation: fadeIn 0.5s 3.5s;
     animation-fill-mode: forwards;
 }
 
@@ -420,7 +435,7 @@ h2 {
 
 @keyframes slideInTop {
     0% {
-      transform: translateY(-100%);
+      transform: translateY(5%);
       opacity: 0%;
     }
     100% {
@@ -429,9 +444,8 @@ h2 {
     }
   }
 
-  @keyframes slideInTopSlow {
+  @keyframes fadeIn {
     0% {
-      transform: translateY(-5%);
       opacity: 0%;
     }
     100% {
@@ -442,10 +456,19 @@ h2 {
 
   @keyframes heySlide {
     0% {
-      transform: translateY(80%);
+      transform: translateY(120%);
     }
     100% {
       transform: translateX(0);
       opacity: 100%;
     }
+  }
+
+  @keyframes btnHover {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+      }
   }
