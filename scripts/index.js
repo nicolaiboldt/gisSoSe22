@@ -1,9 +1,9 @@
 let i = 0;
 const divs = document.getElementsByClassName("grid");
 
-const arrayH = [0,5,10,15,20,4,9,14,19,24,11,12,13];
-const arrayE = [0, 5,10,15,20, 1, 2, 3, 11, 12, 21, 22, 23];
-const arrayY = [0,6,12,4,8,17,22];
+const arrayH = [0, 5, 10, 15, 20, 4, 9, 14, 19, 24, 11, 12, 13];
+const arrayE = [0, 5, 10, 15, 20, 1, 2, 3, 11, 12, 21, 22, 23];
+const arrayY = [0, 6, 12, 4, 8, 17, 22];
 setTimeout(function() {
     for (let r = 0; r < 4; r++) {
         for (q = 0; q < 25; q++) {
