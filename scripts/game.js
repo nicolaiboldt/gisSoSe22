@@ -549,6 +549,10 @@ function changeIcons() {
     }
 }
 
+async function getWinner() {
+    alert(await requestTextWithGET("http://localhost:3000/"));
+}
+
 
 // Debug: Show Numbers
 
@@ -573,6 +577,13 @@ async function sendJSONStringWithPOST(url, jsonString) {
         method: "post",
         body: jsonString
     });
+}
+
+
+async function requestTextWithGET(url) {
+    const response = await fetch(url);
+    const text = await response.text();
+    return text;
 }
 
 

@@ -6,7 +6,7 @@ const arrayE = [0, 5, 10, 15, 20, 1, 2, 3, 11, 12, 21, 22, 23];
 const arrayY = [0, 6, 12, 4, 8, 17, 22];
 setTimeout(function() {
     for (let r = 0; r < 4; r++) {
-        for (q = 0; q < 25; q++) {
+        for (let q = 0; q < 25; q++) {
             let styleString = "";
             if (q < 5 * (5 - 2)) {
                 styleString += "border-bottom: 1px solid black;";
