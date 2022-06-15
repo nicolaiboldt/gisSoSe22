@@ -38,16 +38,19 @@
             <div class="iconAuswahl" id="auswahlX">
                 <input type="file" id="inputX" accept="image/jpeg, image/png, image/jpg" hidden="hidden" onchange="uploadX(event)">
                 <img class="previewIcon" id="previewIconX" src="assets/img/x.png"></img>
-                <label>Spieler 1</label>
+                <label id="player1" class="playerLabel show">Spieler 1</label>
+                <input type="text" id="namePlayer1" class="playerInput" placeholder="Spieler 1">
             </div>
             <div class="iconAuswahl" id="auswahlO">
                 <input type="file" id="inputO" accept="image/jpeg, image/png, image/jpg" hidden="hidden" onchange="uploadO(event)">
                 <img class="previewIcon" id="previewIconO" src="assets/img/o.png"></img>
-                <label>Spieler 2</label>
+                <label id="player2" class="playerLabel show">Spieler 2</label>
+                <input type="text" id="namePlayer2" class="playerInput" placeholder="Spieler 2">
             </div>
             <div class="resetButtons">
-                <button id="reset" onclick="reset()">Reset</button>
+                <button id="reset" onclick="reset()">Reset Game</button>
                 <button id="resetIcons" onclick="resetIcons()">Reset Icons</button>
+                <!---<button id ="resetNames" onclick="resetNames()">Reset Names</button>--->
             </div>
             <button id="showNumbers" onclick="showNumbers()">Show numbers</button>
             <div  class="resetButtons">
@@ -69,7 +72,7 @@
             </div>
             <div class="endscreen" title="Reset">
                 <img class="winningIcon" src="assets/img/x.png">
-                <div class="endText">gewinnt!</div>
+                <div class="endText">Spieler 1 gewinnt!</div>
             </div>
         </div>
     </main>

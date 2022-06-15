@@ -9,6 +9,7 @@ const labels = document.getElementsByClassName("sliderLabel");
 
 const boxes = document.getElementsByClassName("grid-item");
 let player = -1;
+let moves = 0;
 
 const board = document.getElementById("spiel");
 const endscreen = document.getElementsByClassName("endscreen")[0];
@@ -55,6 +56,12 @@ let diaChecks;
 const auswahlX = document.getElementById("auswahlX");
 const auswahlO = document.getElementById("auswahlO");
 
+const labelPlayer1 = document.getElementById("player1");
+const labelPlayer2 = document.getElementById("player2");
+
+const inputPlayer1 = document.getElementById("namePlayer1");
+const inputPlayer2 = document.getElementById("namePlayer2");
+
 
 const imgX = document.getElementById("previewIconX");
 const imgO = document.getElementById("previewIconO");
@@ -94,6 +101,82 @@ groesse.addEventListener("mouseup", function() {
         switchPlayer();
     }
 });
+
+labelPlayer1.addEventListener("click", function() {
+    labelPlayer1.classList.remove("show");
+    inputPlayer1.className += " show";
+    if (player != -1) {
+        auswahlX.className += " high";
+    }
+    inputPlayer1.focus();
+});
+
+labelPlayer2.addEventListener("click", function() {
+    labelPlayer2.classList.remove("show");
+    inputPlayer2.className += " show";
+    if (player != 1) {
+        auswahlO.className += " high";
+    }
+    inputPlayer2.focus();
+});
+
+function input1Defocus() {
+    if (inputPlayer1.value != labelPlayer2.textContent) {
+        if (inputPlayer1.value != "") {
+            labelPlayer1.textContent = inputPlayer1.value;
+        }
+    } else {
+        alert("Du kannst nicht zweimal den gleichen Namen wählen!");
+    }
+    inputPlayer1.classList.remove("show");
+    if (player == 1) {
+        auswahlX.classList.remove("high");
+    }
+    labelPlayer1.className += " show";
+}
+
+inputPlayer1.addEventListener("blur", function() {
+    input1Defocus();
+});
+inputPlayer1.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        input1Defocus();
+    }
+});
+
+function input2Defocus() {
+    if (inputPlayer2.value != labelPlayer1.textContent) {
+        if (inputPlayer2.value != "") {
+            labelPlayer2.textContent = inputPlayer2.value;
+            inputPlayer2.ariaPlaceholder = inputPlayer1.value;
+        }
+    } else {
+        alert("Du kannst nicht zweimal den gleichen Namen wählen!");
+    }
+    inputPlayer2.classList.remove("show");
+    if (player == -1) {
+        auswahlO.classList.remove("high");
+    }
+    labelPlayer2.className += " show";
+}
+
+inputPlayer2.addEventListener("blur", function() {
+    input2Defocus();
+});
+
+inputPlayer2.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        input2Defocus();
+    }
+});
+
+function resetNames() {
+    labelPlayer1.textContent = "Spieler 1";
+    labelPlayer2.textContent = "Spieler 2";
+    inputPlayer1.value = "";
+    inputPlayer2.value = "";
+}
+
 
 const drawBoard = () => {
     for (i = 0; i < boxes.length; i++) {
@@ -179,6 +262,7 @@ function boxClicked(event) {
 function switchPlayer() {
     player *= (-1);
     updatePlayerUI();
+    moves++;
 }
 
 function updatePlayerUI() {
@@ -459,24 +543,19 @@ function checkWon() {
     }
 
     if (unentschieden == true || playerWon != 0) {
-        // Server Post
-
-        sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: rangeColumns }));
-
-
         if (playerWon == 1) {
-            endText.textContent = " gewinnt!";
+            endText.textContent = labelPlayer1.textContent + " gewinnt!";
             winningIcon.className += " show";
             winningIcon.src = iconX.path;
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ winner: "Player X" }));
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: rangeColumns, moves: moves, winner: labelPlayer1.textContent }));
         } else if (playerWon == 2) {
-            endText.textContent = " gewinnt!";
+            endText.textContent = labelPlayer2.textContent + " gewinnt!";
             winningIcon.className += " show";
             winningIcon.src = iconO.path;
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ winner: "Player O" }));
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: rangeColumns, moves: moves, winner: labelPlayer2.textContent }));
         } else {
             endText.textContent = "Unentschieden!";
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ winner: "Tie" }));
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: rangeColumns, moves: moves, winner: "Unentschieden!" } ));
         }
         endscreen.className += " show";
         board.className += " show";
@@ -512,6 +591,7 @@ function reset() {
     groesse.value = 3;
     rangeColumns = 3;
     resetGame = true;
+    moves = 0;
     groessenChange();
 
     randomPlayer();
@@ -550,9 +630,9 @@ function changeIcons() {
 }
 
 async function getWinner() {
-    alert(await requestTextWithGET("http://localhost:3000/"));
+    const text = JSON.parse(await requestTextWithGET("http://localhost:3000/"));
+    alert("Gewinner: " + text.winner);
 }
-
 
 // Debug: Show Numbers
 
@@ -565,7 +645,6 @@ function showNumbers() {
 // Debug: Win erzwingen
 
 function winErzwingen() {
-    console.log("win geforced lol");
     playerWon = 1;
     checkWon();
 }

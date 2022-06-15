@@ -291,18 +291,43 @@ h2 {
 .iconAuswahl {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0.5em;
     align-items: center;
     opacity: 18%;
     transition: 0.2s;
+    width: 4.5em;
 }
-
 .iconAuswahl:hover {
     opacity: 100%;
 }
-
 .iconAuswahl.high {
     opacity: 100%;
+}
+
+.playerInput {
+    display:none;
+    width: 100%;
+    height: 100%;
+    font-family: mainFont;
+}
+
+.playerInput.show {
+    display: inline;
+    animation: fadeIn 0.3s;
+}
+
+.playerLabel:hover {
+    cursor:text;
+}
+
+.playerLabel {
+    display:none;
+    padding-top: 2px;
+}
+
+.playerLabel.show {
+    display:block;
+    animation: fadeIn 0.3s;
 }
 
 .previewIcon {
