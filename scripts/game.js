@@ -346,7 +346,6 @@ randomPlayer();
 updatePlayerUI();
 
 function checkWon() {
-    console.log("--- checkWon ---");
     unentschieden = true;
 
     winBoxesX = [];
@@ -408,7 +407,6 @@ function checkWon() {
             }
 
             if (winBoxesX.length == countsForWin || winBoxesvX.length == countsForWin) {
-                // console.log("HV X ausgelöst");
                 playerWon = 1;
                 if (winBoxesX.length == countsForWin) {
                     for (const boxCount of winBoxesX) {
@@ -422,7 +420,6 @@ function checkWon() {
                 break;
             } else if (winBoxesO.length == countsForWin || winBoxesvO.length == countsForWin) {
                 playerWon = 2;
-                // console.log("HV O ausgelöst");
                 if (winBoxesO.length == countsForWin) {
                     for (const boxCount of winBoxesO) {
                         boxes[boxCount].className += " high";
@@ -502,7 +499,6 @@ function checkWon() {
 
 
             if (winBoxesdX[k].length == countsForWin || winBoxesddX[k].length == countsForWin || winBoxesuX[k].length == countsForWin || winBoxesuuX[k].length == countsForWin) {
-                // console.log("D X ausgelöst");
                 if (winBoxesdX[k].length == countsForWin) {
                     for (const boxCount of winBoxesdX[k]) {
                         boxes[boxCount].className += " high";
@@ -523,7 +519,6 @@ function checkWon() {
                 playerWon = 1;
                 // break;
             } else if (winBoxesdO[k].length == countsForWin || winBoxesddO[k].length == countsForWin || winBoxesuO[k].length == countsForWin || winBoxesuuO[k].length == countsForWin) {
-                // console.log("D O ausgelöst");
                 if (winBoxesdO[k].length == countsForWin) {
                     for (const boxCount of winBoxesdO[k]) {
                         boxes[boxCount].className += " high";
@@ -574,8 +569,6 @@ function checkWon() {
 }
 
 function reset() {
-    console.log("RESET");
-
     for (const box of boxes) {
         box.classList.remove("high");
         if (box.hasChildNodes()) {
