@@ -15,6 +15,7 @@ const highscores = db.collection("scores");
 async function startServer() {
     // connect to database
     await mongoClient.connect();
+    highscores.deleteMany({});
     // listen for requests
     server.listen(port, hostname, () => {
         console.log(`Server running at http://${hostname}:${port}/`);
@@ -22,6 +23,7 @@ async function startServer() {
 }
 
 const server = http.createServer(async (request, response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*");
     if (request.method === "POST") {
         let jsonString = "";
         request.on("data", (data) => {
@@ -35,7 +37,6 @@ const server = http.createServer(async (request, response) => {
 
     if (request.method === "GET") {
         response.setHeader("Content-Type", "text/plain");
-        response.setHeader("Access-Control-Allow-Origin", "*");
         console.log("GET-Request");
         console.log(await (await highscores.find().toArray()).pop());
         response.write(JSON.stringify(await (await highscores.find().toArray()).pop()));

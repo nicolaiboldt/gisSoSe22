@@ -359,6 +359,20 @@ h2 {
     display: none;
 }
 
+#iconSound {
+    object-fit: contain;
+    width: 3em;
+    height: 3em;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#iconSound:hover {
+    transform: scale(1.1);
+}
+
+
+
 .boardContainer {
     position: relative;
 }

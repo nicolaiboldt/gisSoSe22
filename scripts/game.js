@@ -62,6 +62,9 @@ const labelPlayer2 = document.getElementById("player2");
 const inputPlayer1 = document.getElementById("namePlayer1");
 const inputPlayer2 = document.getElementById("namePlayer2");
 
+inputPlayer1.value = "";
+inputPlayer2.value = "";
+
 
 const imgX = document.getElementById("previewIconX");
 const imgO = document.getElementById("previewIconO");
@@ -71,9 +74,13 @@ const inputO = document.getElementById("inputO");
 const defaultPathX = "assets/img/x.png";
 const defaultPathO = "assets/img/o.png";
 
+const iconSound = document.getElementById("iconSound");
+let audioOn = true;
+
 const plopSound = new Audio("./assets/audio/plop.wav");
 const winSound = new Audio("./assets/audio/win.wav");
 const sliderSound = new Audio("./assets/audio/slider.wav");
+const resetSound = new Audio("./assets/audio/reset.wav");
 
 let iconX = {
     name: "iconX",
@@ -174,6 +181,17 @@ inputPlayer2.addEventListener("keydown", function(event) {
     }
 });
 
+
+iconSound.addEventListener("click", () => {
+    audioOn = !audioOn;
+    if (audioOn) {
+        iconSound.src = "./assets/img/speaker.png";
+        sliderSound.play();
+    } else {
+        iconSound.src = "./assets/img/muted.png";
+    }
+});
+
 function resetNames() {
     labelPlayer1.textContent = "Spieler 1";
     labelPlayer2.textContent = "Spieler 2";
@@ -245,7 +263,9 @@ function uploadO(event) {
 
 function boxClicked(event) {
     if (event.currentTarget.hasChildNodes() == false && playerWon == 0) {
-        plopSound.play();
+        if (audioOn) {
+            plopSound.play();
+        }
         switchPlayer();
         const icon = document.createElement("img");
         if (player == 1) {
@@ -286,7 +306,9 @@ function updatePlayerUI() {
 
 function groessenChange() {
     if (rangeColumns < document.getElementById("groesse").value || gameStarted == false || resetGame == true) {
-        sliderSound.play();
+        if (resetGame == false && audioOn) {
+            sliderSound.play();
+        }
         rangeColumns = document.getElementById("groesse").value;
         gameStarted = true;
 
@@ -543,20 +565,22 @@ function checkWon() {
     }
 
     if (unentschieden == true || playerWon != 0) {
-        winSound.play();
+        if (audioOn) {
+            winSound.play();
+        }
         if (playerWon == 1) {
             endText.textContent = labelPlayer1.textContent + " gewinnt!";
             winningIcon.className += " show";
             winningIcon.src = iconX.path;
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: rangeColumns, moves: moves, winner: labelPlayer1.textContent }));
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: labelPlayer1.textContent }));
         } else if (playerWon == 2) {
             endText.textContent = labelPlayer2.textContent + " gewinnt!";
             winningIcon.className += " show";
             winningIcon.src = iconO.path;
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: rangeColumns, moves: moves, winner: labelPlayer2.textContent }));
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: labelPlayer2.textContent }));
         } else {
             endText.textContent = "Unentschieden!";
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: rangeColumns, moves: moves, winner: "Unentschieden!" } ));
+            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: "Unentschieden!" } ));
         }
         endscreen.className += " show";
         board.className += " show";
@@ -569,6 +593,9 @@ function checkWon() {
 }
 
 function reset() {
+    if (audioOn) {
+        resetSound.play();
+    }
     for (const box of boxes) {
         box.classList.remove("high");
         if (box.hasChildNodes()) {
@@ -630,7 +657,7 @@ function changeIcons() {
 
 async function getWinner() {
     const text = JSON.parse(await requestTextWithGET("http://localhost:3000/"));
-    alert("Gewinner: " + text.winner + "\nFelder: " + text.rows + "x" + text.rows + "\nZüge: " + text.moves);
+    alert("Letzer Gewinner: " + text.winner + "\nFelder: " + text.rows + "x" + text.rows + "\nZüge: " + text.moves);
 }
 
 // Debug: Show Numbers
