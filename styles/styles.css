@@ -253,6 +253,7 @@ p {
     padding: 1rem;
     width: max-content;
     border-radius: 20px;
+    user-select: none;
     
 }
 #slider{
@@ -411,6 +412,7 @@ h2 {
 .board {
     transition: 0.3s;
     overflow: hidden;
+    user-select: none;
 }
 
 .board.show {

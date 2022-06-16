@@ -72,6 +72,8 @@ const defaultPathX = "assets/img/x.png";
 const defaultPathO = "assets/img/o.png";
 
 const plopSound = new Audio("./assets/audio/plop.wav");
+const winSound = new Audio("./assets/audio/win.wav");
+const sliderSound = new Audio("./assets/audio/slider.wav");
 
 let iconX = {
     name: "iconX",
@@ -284,6 +286,7 @@ function updatePlayerUI() {
 
 function groessenChange() {
     if (rangeColumns < document.getElementById("groesse").value || gameStarted == false || resetGame == true) {
+        sliderSound.play();
         rangeColumns = document.getElementById("groesse").value;
         gameStarted = true;
 
@@ -545,6 +548,7 @@ function checkWon() {
     }
 
     if (unentschieden == true || playerWon != 0) {
+        winSound.play();
         if (playerWon == 1) {
             endText.textContent = labelPlayer1.textContent + " gewinnt!";
             winningIcon.className += " show";
