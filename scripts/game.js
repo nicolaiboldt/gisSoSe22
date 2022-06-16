@@ -71,6 +71,8 @@ const inputO = document.getElementById("inputO");
 const defaultPathX = "assets/img/x.png";
 const defaultPathO = "assets/img/o.png";
 
+const plopSound = new Audio("./assets/audio/plop.wav");
+
 let iconX = {
     name: "iconX",
     path: defaultPathX
@@ -241,6 +243,7 @@ function uploadO(event) {
 
 function boxClicked(event) {
     if (event.currentTarget.hasChildNodes() == false && playerWon == 0) {
+        plopSound.play();
         switchPlayer();
         const icon = document.createElement("img");
         if (player == 1) {
@@ -323,7 +326,6 @@ function groessenChange() {
         }
         resetGame = false;
         drawBoard();
-        // switchPlayer();
         checkWon();
     } else {
         groesse.value = rangeColumns;
@@ -631,7 +633,7 @@ function changeIcons() {
 
 async function getWinner() {
     const text = JSON.parse(await requestTextWithGET("http://localhost:3000/"));
-    alert("Gewinner: " + text.winner);
+    alert("Gewinner: " + text.winner + "\nFelder: " + text.rows + "x" + text.rows + "\nZüge: " + text.moves);
 }
 
 // Debug: Show Numbers
