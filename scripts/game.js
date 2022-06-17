@@ -132,9 +132,12 @@ labelPlayer2.addEventListener("click", function() {
 });
 
 function input1Defocus() {
-    if (inputPlayer1.value != labelPlayer2.textContent) {
-        if (inputPlayer1.value != "") {
-            labelPlayer1.textContent = inputPlayer1.value;
+    const input1 = inputPlayer1.value;
+    if (input1 != labelPlayer2.textContent) {
+        if (input1 != "" && !checkUnicode(input1)) {
+            labelPlayer1.textContent = input1;
+        } else {
+            labelPlayer1.textContent = "Spieler 1";
         }
     } else {
         alert("Du kannst nicht zweimal den gleichen Namen wählen!");
@@ -156,10 +159,12 @@ inputPlayer1.addEventListener("keydown", function(event) {
 });
 
 function input2Defocus() {
-    if (inputPlayer2.value != labelPlayer1.textContent) {
-        if (inputPlayer2.value != "") {
-            labelPlayer2.textContent = inputPlayer2.value;
-            inputPlayer2.ariaPlaceholder = inputPlayer1.value;
+    const input2 = inputPlayer2.value;
+    if (input2 != labelPlayer1.textContent) {
+        if (input2 != "" && !checkUnicode(input2)) {
+            labelPlayer2.textContent = input2;
+        } else {
+            labelPlayer2.textContent = "Spieler 2";
         }
     } else {
         alert("Du kannst nicht zweimal den gleichen Namen wählen!");
@@ -191,6 +196,10 @@ iconSound.addEventListener("click", () => {
         iconSound.src = "./assets/img/muted.png";
     }
 });
+
+function checkUnicode(s) {
+    return /[^\u0000-\u00ff]/.test(s);
+}
 
 function resetNames() {
     labelPlayer1.textContent = "Spieler 1";

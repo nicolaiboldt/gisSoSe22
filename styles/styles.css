@@ -327,7 +327,9 @@ h2 {
 }
 
 .playerLabel.show {
-    display:block;
+    display: inline-block;
+    line-break: strict;
+   
     animation: fadeIn 0.3s;
 }
 
