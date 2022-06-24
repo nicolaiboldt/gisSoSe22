@@ -20,6 +20,7 @@ let gameStarted = false;
 let playerWon = 0;
 let resetGame = false;
 let numbers = -1;
+let resetAllowed = false;
 
 let winBoxesX = [];
 let winBoxesO = [];
@@ -207,7 +208,7 @@ iconReset.addEventListener("click", () => {
     reset();
 });
 
-resetDropdown.addEventListener("mouseover", () => {
+resetDropdown.addEventListener("mouseenter", () => {
     dropdown.className += " show";
 });
 
@@ -215,11 +216,7 @@ resetDropdown.addEventListener("mouseleave", () => {
     dropdown.classList.remove("show");
 });
 
-resetDropdown.addEventListener("click", () => {
-    dropdown.classList.remove("show");
-});
-
-dropdownBG.addEventListener("mouseover", () => {
+dropdownBG.addEventListener("mouseenter", () => {
     if (!iconDropdown.classList.contains("show")) {
         iconDropdown.className += " show";
         resetP.className += " show";
@@ -331,6 +328,7 @@ function switchPlayer() {
     player *= (-1);
     updatePlayerUI();
     moves++;
+    resetAllowed = true;
 }
 
 function updatePlayerUI() {
@@ -636,35 +634,38 @@ function checkWon() {
 }
 
 function reset() {
-    if (audioOn) {
-        resetSound.play();
-    }
-    for (const box of boxes) {
-        box.classList.remove("high");
-        if (box.hasChildNodes()) {
-            box.removeChild(box.firstChild);
+    if (resetAllowed) {
+        if (audioOn) {
+            resetSound.play();
         }
-        box.classList.remove("x");
-        box.classList.remove("o");
+        for (const box of boxes) {
+            box.classList.remove("high");
+            if (box.hasChildNodes()) {
+                box.removeChild(box.firstChild);
+            }
+            box.classList.remove("x");
+            box.classList.remove("o");
+        }
+
+        for (const l of labels) {
+            l.classList.remove("disabled");
+        }
+
+        endscreen.classList.remove("show");
+        board.classList.remove("show");
+        groesse.disabled = false;
+        playerWon = 0;
+
+        groesse.value = 3;
+        rangeColumns = 3;
+        resetGame = true;
+        moves = 0;
+        resetAllowed = false;
+        groessenChange();
+
+        randomPlayer();
+        updatePlayerUI();
     }
-
-    for (const l of labels) {
-        l.classList.remove("disabled");
-    }
-
-    endscreen.classList.remove("show");
-    board.classList.remove("show");
-    groesse.disabled = false;
-    playerWon = 0;
-
-    groesse.value = 3;
-    rangeColumns = 3;
-    resetGame = true;
-    moves = 0;
-    groessenChange();
-
-    randomPlayer();
-    updatePlayerUI();
 }
 
 function randomPlayer() {

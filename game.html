@@ -37,41 +37,41 @@
             </div>
             <div class="iconAuswahl" id="auswahlX">
                 <input type="file" id="inputX" accept="image/jpeg, image/png, image/jpg" hidden="hidden" onchange="uploadX(event)">
-                <img class="previewIcon" id="previewIconX" src="assets/img/x.png"></img>
-                <label id="player1" class="playerLabel show">Spieler 1</label>
+                <img class="previewIcon" id="previewIconX" src="assets/img/x.png" title="Symbol auswählen"></img>
+                <label id="player1" class="playerLabel show" title="Namen eingeben">Spieler 1</label>
                 <input type="text" id="namePlayer1" class="playerInput" placeholder="Spieler 1" maxlength="8" onfocus="this.select();">
             </div>
             <div class="iconAuswahl" id="auswahlO">
                 <input type="file" id="inputO" accept="image/jpeg, image/png, image/jpg" hidden="hidden" onchange="uploadO(event)">
-                <img class="previewIcon" id="previewIconO" src="assets/img/o.png"></img>
-                <label id="player2" class="playerLabel show">Spieler 2</label>
+                <img class="previewIcon" id="previewIconO" src="assets/img/o.png" title="Symbol auswählen"></img>
+                <label id="player2" class="playerLabel show" title="Namen eingeben">Spieler 2</label>
                 <input type="text" id="namePlayer2" class="playerInput" placeholder="Spieler 2" maxlength="8" onfocus="this.select();">
             </div>
             <div class="resetButtons">
                 <div id="resetDropdown">
                     <div class="dropdownBG">
                         <div id="resetAndIcon">
-                            <p id="resetP" class="resetP">Reset</p>
+                            <p id="resetP" class="resetP">Standard</p>
                             <img id="iconDropdown" class="iconDrop" src="assets/img/dropdown_b.png">
                         </div>
                     </div>
                     <div class="dropdown">
-                        <p id="resetIcons" onclick="resetIcons()">Icons</p>
-                        <p id ="resetNames" onclick="resetNames()">Names</p>
+                        <p id="resetIcons" onclick="resetIcons()">Symbole</p>
+                        <p id ="resetNames" onclick="resetNames()">Namen</p>
                     </div>
                 </div>
-                <button id="getWinner" onclick="getWinner()">Get winner</button>
+                <button id="getWinner" onclick="getWinner()">Letztes Ergebnis</button>
             </div>
             
             <div class="resetButtons">
                 <button id="winErzwingen" onclick="winErzwingen()">Force win</button>
                 <button id="showNumbers" onclick="showNumbers()">Show numbers</button>
             </div>
-            <div class="resetButtons">
+            <div class="resetButtons" title="Audio ein/aus">
                 <img id="iconSound" src="assets/img/speaker.png">
                 
             </div>
-            <div id="resetGame">
+            <div id="resetGame" title="Spiel zurücksetzen">
                 <img id="iconReset" src="assets/img/reset.png">
             </div>
         </div>
@@ -87,14 +87,14 @@
                 <div class="grid-item"></div>
                 <div class="grid-item"></div>
             </div>
-            <div class="endscreen" title="Reset">
+            <div class="endscreen" title="Zurücksetzen">
                 <img class="winningIcon" src="assets/img/x.png">
                 <div class="endText">Spieler 1 gewinnt!</div>
             </div>
         </div>
     </main>
     </div>
-    <footer>Impressum</footer>
+    <footer class="start_footer">Impressum</footer>
 </body>
 
 </html>

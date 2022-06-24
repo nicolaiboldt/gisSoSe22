@@ -17,7 +17,9 @@ setTimeout(function() {
             if (q >= 5 * (5 - 1)) {
                 styleString += "border-top: 1px solid black;";
             }
-            divs[q + (r * 25)].style = styleString;
+            if (q + (r*25) < 75) {
+                divs[q + (r * 25)].style = styleString;
+            }
         };
     };
 });
@@ -42,7 +44,6 @@ setTimeout(function() {
 let f = 0;
 
 setTimeout(function() {
-    console.log("letsgo");
     const fd = setInterval(function() {
         if (f == arrayE.length) {
             clearInterval(fd);
