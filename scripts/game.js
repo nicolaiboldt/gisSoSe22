@@ -75,6 +75,12 @@ const defaultPathX = "assets/img/x.png";
 const defaultPathO = "assets/img/o.png";
 
 const iconSound = document.getElementById("iconSound");
+const iconReset = document.getElementById("iconReset");
+const iconDropdown = document.getElementById("iconDropdown");
+const resetP = document.getElementById("resetP");
+const resetDropdown = document.getElementById("resetDropdown");
+const dropdown = document.getElementsByClassName("dropdown")[0];
+const dropdownBG = document.getElementsByClassName("dropdownBG")[0];
 let audioOn = true;
 
 const plopSound = new Audio("./assets/audio/plop.wav");
@@ -195,6 +201,34 @@ iconSound.addEventListener("click", () => {
     } else {
         iconSound.src = "./assets/img/muted.png";
     }
+});
+
+iconReset.addEventListener("click", () => {
+    reset();
+});
+
+resetDropdown.addEventListener("mouseover", () => {
+    dropdown.className += " show";
+});
+
+resetDropdown.addEventListener("mouseleave", () => {
+    dropdown.classList.remove("show");
+});
+
+resetDropdown.addEventListener("click", () => {
+    dropdown.classList.remove("show");
+});
+
+dropdownBG.addEventListener("mouseover", () => {
+    if (!iconDropdown.classList.contains("show")) {
+        iconDropdown.className += " show";
+        resetP.className += " show";
+    }
+});
+
+dropdownBG.addEventListener("mouseleave", () => {
+    iconDropdown.classList.remove("show");
+    resetP.classList.remove("show");
 });
 
 function checkUnicode(s) {

@@ -116,8 +116,6 @@ button, button:active{
         border: 1px solid black;
         transform: scale(1.1);
   }
-
-    
 }
 
 p {
@@ -260,11 +258,16 @@ p {
     margin: 0em 1em;
 }
 
+#groesse {
+    margin-top: 1em;
+}
+
 .start_slider {
     margin: 0em 1em;
     box-shadow: 0 0 20px -10px black;
     padding: 1.5em 2.5em;
     width: fit-content;
+    height: fit-content;
     border-radius: 20px;
     float:inline-end;
 }
@@ -281,8 +284,8 @@ h2 {
 .labels {
     display: flex;
     justify-content: space-between;
-    padding-left: 7px;
-    padding-right: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 .sliderLabel.disabled {
@@ -361,6 +364,128 @@ h2 {
     display: none;
 }
 
+#winErzwingen {
+    display: none;
+}
+
+#iconDropdown {
+    width: 1.2em;
+    height: 1.2em;
+    padding-top: 0.2em;
+}
+
+.iconDrop {
+    transform: translateX(-0.3em);
+    opacity: 0%;
+    transition: 0.3s;
+}
+
+.iconDrop.show {
+    transform: translateX(0em);
+    opacity: 100%;
+}
+
+.resetP {
+    width: fit-content;
+    transform: translateX(0.7em);
+    transition: 0.3s;
+}
+
+.resetP.show {
+    transform: translateX(0px);
+}
+
+#resetAndIcon {
+    width: 4em;
+    height: 3em;
+    display: flex;
+    gap: 0.2em;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.dropdownBG {
+    background-color: #f4511e;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    transition: 0.3s;
+    border: 1px solid #f4511e;
+    border-radius: 15px;
+    display: flexbox;
+    z-index: 2;
+    position: relative;
+}
+
+@media (hover: hover) {
+    .dropdownBG:hover {
+        cursor: pointer;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+  }
+}
+
+#resetDropdown {
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    background-color: white;
+    width: 5em;
+    height: fit-content;
+    top: -25%;
+    left: 90%;
+    padding: 0.5em;
+    border-radius: 15px;
+    display: none;
+    z-index: 1;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+.dropdown.show {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    animation: dropdown 0.3s;
+}
+
+.dropdown p {
+    margin: 0 auto;
+    padding: 0.2em;
+}
+
+.dropdown p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#getWinner {
+    background-color: #f4511e;
+    display: flexbox;
+    font-family: mainFont;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    transition: 0.3s;
+    border: 1px solid #f4511e;
+    border-radius: 15px;
+    transform: scale(1);
+
+}
+#getWinner:hover {
+    cursor: pointer;
+    font-family: mainFont;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    transform: scale(1);
+}
+
 #iconSound {
     object-fit: contain;
     width: 3em;
@@ -373,6 +498,21 @@ h2 {
     transform: scale(1.1);
 }
 
+#resetGame {
+    margin: 0.5em;
+}
+
+#iconReset {
+    object-fit: contain;
+    width: 3em;
+    height: 3em;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#iconReset:hover {
+    transform: scale(1.1);
+}
 
 
 .boardContainer {
@@ -522,5 +662,22 @@ h2 {
       }
       100% {
         transform: scale(1.1);
+      }
+  }
+
+  @keyframes dropdown {
+
+    0% {
+
+        transform: translateX(-1em);
+        opacity: 0%;
+    
+      }
+    
+      100% {
+    
+        transform: translateX(0em);
+        opacitiy: 100%;
+    
       }
   }

@@ -24,8 +24,8 @@
     </header>
     <main>
         <div class = "setting">
-            <h2>Spielfeldgröße</h2>
             <div id="slider">
+                <h2>Spielfeldgröße</h2>
                 <input type="range" min="3" max="7" value="1" id="groesse" oninput="groessenChange()">
                 <div class="labels">
                     <label class="sliderLabel">3</label>
@@ -48,17 +48,31 @@
                 <input type="text" id="namePlayer2" class="playerInput" placeholder="Spieler 2" maxlength="8" onfocus="this.select();">
             </div>
             <div class="resetButtons">
-                <button id="reset" onclick="reset()">Reset Game</button>
-                <button id="resetIcons" onclick="resetIcons()">Reset Icons</button>
-                <!---<button id ="resetNames" onclick="resetNames()">Reset Names</button>--->
-            </div>
-            <button id="showNumbers" onclick="showNumbers()">Show numbers</button>
-            <div  class="resetButtons">
-                <button id="winErzwingen" onclick="winErzwingen()">Force win</button>
+                <div id="resetDropdown">
+                    <div class="dropdownBG">
+                        <div id="resetAndIcon">
+                            <p id="resetP" class="resetP">Reset</p>
+                            <img id="iconDropdown" class="iconDrop" src="assets/img/dropdown_b.png">
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <p id="resetIcons" onclick="resetIcons()">Icons</p>
+                        <p id ="resetNames" onclick="resetNames()">Names</p>
+                    </div>
+                </div>
                 <button id="getWinner" onclick="getWinner()">Get winner</button>
             </div>
-            <div>
+            
+            <div class="resetButtons">
+                <button id="winErzwingen" onclick="winErzwingen()">Force win</button>
+                <button id="showNumbers" onclick="showNumbers()">Show numbers</button>
+            </div>
+            <div class="resetButtons">
                 <img id="iconSound" src="assets/img/speaker.png">
+                
+            </div>
+            <div id="resetGame">
+                <img id="iconReset" src="assets/img/reset.png">
             </div>
         </div>
         <div class="boardContainer">
