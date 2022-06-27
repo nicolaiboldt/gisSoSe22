@@ -6,6 +6,7 @@ const groesse = document.getElementById("groesse");
 let rangeColumns = groesse.value;
 let valueBefore = groesse.value;
 const labels = document.getElementsByClassName("sliderLabel");
+const pointsLabel = document.getElementById("pointsLabel");
 
 const boxes = document.getElementsByClassName("grid-item");
 let player = -1;
@@ -389,6 +390,14 @@ function groessenChange() {
                 }
                 columnsBefore--;
             }
+        }
+
+        if (rangeColumns <= 4) {
+            pointsLabel.textContent = rangeColumns;
+        } else if (rangeColumns == 5) {
+            pointsLabel.textContent = 4;
+        } else if (rangeColumns >= 6) {
+            pointsLabel.textContent = 5;
         }
         resetGame = false;
         drawBoard();
