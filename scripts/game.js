@@ -85,10 +85,10 @@ const dropdown = document.getElementsByClassName("dropdown")[0];
 const dropdownBG = document.getElementsByClassName("dropdownBG")[0];
 let audioOn = true;
 
-const plopSound = new Audio("./assets/audio/plop.wav");
-const winSound = new Audio("./assets/audio/win.wav");
-const sliderSound = new Audio("./assets/audio/slider.wav");
-const resetSound = new Audio("./assets/audio/reset.wav");
+const plop = "./assets/audio/plop.wav";
+const win = "./assets/audio/win.wav";
+const slider = "./assets/audio/slider.wav";
+const resetSound = "./assets/audio/reset.wav";
 
 let iconX = {
     name: "iconX",
@@ -99,6 +99,11 @@ let iconO = {
     name: "iconO",
     path: defaultPathO
 };
+
+function playSound(path) {
+    const sound = new Audio(path);
+    sound.play();
+}
 
 imgX.addEventListener("click", function() {
     inputX.click();
@@ -199,7 +204,7 @@ iconSound.addEventListener("click", () => {
     audioOn = !audioOn;
     if (audioOn) {
         iconSound.src = "./assets/img/speaker.png";
-        sliderSound.play();
+        playSound(slider);
     } else {
         iconSound.src = "./assets/img/muted.png";
     }
@@ -305,7 +310,7 @@ function uploadO(event) {
 function boxClicked(event) {
     if (event.currentTarget.hasChildNodes() == false && playerWon == 0) {
         if (audioOn) {
-            plopSound.play();
+            playSound(plop);
         }
         switchPlayer();
         const icon = document.createElement("img");
@@ -349,7 +354,7 @@ function updatePlayerUI() {
 function groessenChange() {
     if (rangeColumns < document.getElementById("groesse").value || gameStarted == false || resetGame == true) {
         if (resetGame == false && audioOn) {
-            sliderSound.play();
+            playSound(slider);
         }
         rangeColumns = document.getElementById("groesse").value;
         gameStarted = true;
@@ -616,7 +621,7 @@ function checkWon() {
 
     if (unentschieden == true || playerWon != 0) {
         if (audioOn) {
-            winSound.play();
+            playSound(win);
         }
         if (playerWon == 1) {
             endText.textContent = labelPlayer1.textContent + " gewinnt!";
@@ -645,7 +650,7 @@ function checkWon() {
 function reset() {
     if (resetAllowed) {
         if (audioOn) {
-            resetSound.play();
+            playSound(resetSound);
         }
         for (const box of boxes) {
             box.classList.remove("high");
