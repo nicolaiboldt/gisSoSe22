@@ -1,5 +1,6 @@
-# TicTacToe EXTREME
-Abgabe 7 befindet sich im Root-Ordner.
+# Tic-Tac-Toe EXTREME
+
+Spiele jetzt den Gelegenheitsspiel-Klassiker im neuen Look und mit erweiterter Funktionalität!
 
 Repository von Nicolai Boldt, OMB 2
 
