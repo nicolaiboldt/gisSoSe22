@@ -17,6 +17,8 @@ const endscreen = document.getElementsByClassName("endscreen")[0];
 const endText = document.getElementsByClassName("endText")[0];
 const winningIcon = document.getElementsByClassName("winningIcon")[0];
 
+let text = { winner: "TBD", rows: 0, moves: 0 };
+
 let gameStarted = false;
 let playerWon = 0;
 let resetGame = false;
@@ -83,6 +85,10 @@ const resetP = document.getElementById("resetP");
 const resetDropdown = document.getElementById("resetDropdown");
 const dropdown = document.getElementsByClassName("dropdown")[0];
 const dropdownBG = document.getElementsByClassName("dropdownBG")[0];
+const stats = document.getElementsByClassName("stats")[0];
+const tWinner = document.getElementById("tWinner");
+const tSize = document.getElementById("tSize");
+const tMoves = document.getElementById("tMoves");
 let audioOn = true;
 
 const plop = "./assets/audio/plop.wav";
@@ -121,9 +127,6 @@ groesse.addEventListener("mousedown", function() {
 });
 
 groesse.addEventListener("mouseup", function() {
-    if (groesse.value != valueBefore) {
-        switchPlayer();
-    }
 });
 
 labelPlayer1.addEventListener("click", function() {
@@ -233,6 +236,7 @@ dropdownBG.addEventListener("mouseleave", () => {
     iconDropdown.classList.remove("show");
     resetP.classList.remove("show");
 });
+
 
 function checkUnicode(s) {
     return /[^\u0000-\u00ff]/.test(s);
@@ -627,16 +631,26 @@ function checkWon() {
             endText.textContent = labelPlayer1.textContent + " gewinnt!";
             winningIcon.className += " show";
             winningIcon.src = iconX.path;
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: labelPlayer1.textContent }));
+            // sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: labelPlayer1.textContent }));
+            text.rows = parseInt(rangeColumns);
+            text.moves = moves;
+            text.winner = labelPlayer1.textContent;
         } else if (playerWon == 2) {
             endText.textContent = labelPlayer2.textContent + " gewinnt!";
             winningIcon.className += " show";
             winningIcon.src = iconO.path;
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: labelPlayer2.textContent }));
+            // sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: labelPlayer2.textContent }));
+            text.rows = parseInt(rangeColumns);
+            text.moves = moves;
+            text.winner = labelPlayer2.textContent;
         } else {
             endText.textContent = "Unentschieden!";
-            sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: "Unentschieden!" } ));
+            // sendJSONStringWithPOST("http://localhost:3000/", JSON.stringify({ rows: parseInt(rangeColumns), moves: moves, winner: "Unentschieden!" } ));
+            text.rows = parseInt(rangeColumns);
+            text.moves = moves;
+            text.winner = "Unentschieden";
         }
+        updateStats();
         endscreen.className += " show";
         board.className += " show";
         groesse.disabled = true;
@@ -713,9 +727,18 @@ function changeIcons() {
     }
 }
 
-async function getWinner() {
-    const text = JSON.parse(await requestTextWithGET("http://localhost:3000/"));
-    alert("Letzer Gewinner: " + text.winner + "\nFelder: " + text.rows + "x" + text.rows + "\nZüge: " + text.moves);
+function getWinner() {
+    if (!stats.classList.contains("show")) {
+        stats.className += " show";
+    } else {
+        stats.classList.remove("show");
+    }
+}
+
+function updateStats() {
+    tWinner.textContent = "Gewinner: " + text.winner;
+    tSize.textContent = "Spielfeldgröße: " + text.rows + "x" + text.rows;
+    tMoves.textContent = "Züge: " + text.moves;
 }
 
 // Debug: Show Numbers

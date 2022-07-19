@@ -517,6 +517,51 @@ h2 {
     transform: scale(1);
 }
 
+.settingBox {
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    gap: 0em;
+    
+}
+
+.stats {
+    display: none;
+    position: absolute;
+    left: 74%;
+    background-color: white;
+    width: fit-content;
+    height: 7em;
+    border-radius: 15px;
+    margin: 1rem;
+    
+}
+
+.stats.show {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0em;
+    box-shadow: 0 0 20px -10px black;
+    animation: dropdown 0.3s;
+    padding: 1em;
+}
+
+.stats p {
+    margin: 0;
+    font-size: large;
+    text-align: left;
+    width: 100%;
+    padding: 0.2em
+
+}
+
+#tLast {
+    font-size: larger;
+    font-weight: 600;
+}
+
+
 #iconSound {
     object-fit: contain;
     width: 3em;
