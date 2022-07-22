@@ -243,20 +243,6 @@ p {
     opacity: 60%;
 }
 
-.setting {
-    background-color: white;
-    box-shadow: 0 0 20px -10px black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin: 1rem;
-    padding: 1rem;
-    width: max-content;
-    border-radius: 20px;
-    user-select: none;
-    
-}
 #slider{
     margin-left: 1em;
 }
@@ -519,10 +505,127 @@ h2 {
 
 .settingBox {
     display: flex;
-    height: fit-content;
+    translate: 2px;
     align-items: center;
     gap: 0em;
     
+}
+
+.setting {
+    background-color: white;
+    box-shadow: 0 0 20px -10px black;
+    display: flex;
+    transform-origin: top;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 20px;
+    user-select: none;
+    
+}
+
+.firstSetting {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: max-content;
+    border-radius: 20px;
+    user-select: none;
+}
+
+.secondSetting {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1rem;
+    width: max-content;
+    border-radius: 20px;
+    user-select: none;
+}
+
+@media (max-width: 940px) {
+
+    .boardContainer {
+        scale: 90%;
+        transform-origin: top;
+        transition: 0.3s;
+    }
+
+    .setting {
+        scale: 80%;
+        transition: 0.3s;
+    }
+
+}
+
+@media (max-width: 732px) {
+
+    .boardContainer {
+        scale: 90%;
+        transform-origin: top;
+        transition: 0.3s;
+    }
+
+    .setting {
+        scale: 70%;
+        transition: 0.3s;
+    }
+
+}
+
+@media (max-width: 642px) {
+
+    .boardContainer {
+        scale: 80%;
+        transition: 0.3s;
+    }
+
+    .setting {
+        scale: 80%;
+        height: 1%;
+        flex-wrap: wrap;
+        transition: 0.3s;
+    }
+
+    
+    .firstSetting {
+        flex-basis: 100%;
+        transition: 0.3s;
+    }
+
+    .secondSetting {
+        flex-basis: 100%;
+        transition: 0.3s;
+    }
+
+    .rEins {
+        flex-basis: 60%;
+        transition: 0.3s;
+    }
+}
+
+@media (max-width: 490px) {
+    nav a {
+        font-size: small;
+    }
+}
+
+@media (max-width: 436px) {
+    nav a {
+        font-size:x-small;
+    }
+
+    .setting {
+        scale: 70%;
+    }
 }
 
 .stats {
@@ -534,6 +637,7 @@ h2 {
     height: 7em;
     border-radius: 15px;
     margin: 1rem;
+    z-index: 100;
     
 }
 
@@ -667,14 +771,6 @@ h2 {
     opacity: 100%;
     animation: growDown 0.5s 0.6s backwards;
 }
-
-
-
-
-
-
-
-
 
 
 
